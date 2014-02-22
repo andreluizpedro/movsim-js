@@ -1,0 +1,41 @@
+*.class
+*.orig
+*.zip
+
+node_modules/
+
+# Editor #
+######################
+
+# Intellij project files
+.idea/
+*.iml
+
+# Eclipse
+.project
+.metadata
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+.classpath
+.settings/
+.loadpath
+*.launch
+
+# SublimeText project files
+*.sublime-workspace
+
+*~
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
