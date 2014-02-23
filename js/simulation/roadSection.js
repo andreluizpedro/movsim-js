@@ -4,11 +4,11 @@ movsim.namespace('movsim.simulation.roadSection');
     "use strict";
 
     // Constructor
-    function RoadSection() {
+    function RoadSection(roadSectionParameters) {
         this.roadLanes = [];
 
         for (var i = 0; i < roadSectionParameters.numberOfLanes; i++) {
-            var roadLane = roadLane.create();
+            var roadLane = movsim.simulation.roadLane.create();
             this.roadLanes.push(roadLane);
         }
         var vehiclesInOneLane = roadSectionParameters.roadLength * roadSectionParameters.initDensityPerLane;
@@ -58,10 +58,9 @@ movsim.namespace('movsim.simulation.roadSection');
             vehicleParameters.speed = 0.8 * movsim.carFollowingModel.idmParameters.getDefaultTruck().v0;
             vehicleParameters.position = i * 100; // TODO init correctly
             var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
-            var lane = i % roadLanes.length;
+            var lane = i % this.roadLanes.length;
             this.roadLanes[lane].addVehicle(vehicle);
         }
-        ;
     };
 
     return ns;

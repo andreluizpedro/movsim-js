@@ -41,3 +41,13 @@ test('IDM parameters truck default', function () {
     deepEqual(truckDefaultIdmParameters.s1, 0, 's1');
 });
 
+module('road network');
+test('road network', function () {
+    var roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
+    console.log('roadNetwork: ', roadNetwork);
+
+    ok(roadNetwork instanceof movsim.simulation.roadNetwork.RoadNetwork, 'ring road from factory is a compliant road network');
+    ok(roadNetwork.roadSections.length === 1, '1 road section');
+    ok(roadNetwork.roadSections[0].roadLanes.length === 1, '1 road lane');
+    deepEqual(roadNetwork.roadSections[0].roadLanes[0].vehicles.length, 20, 'with 20 vehicles');
+});
