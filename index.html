@@ -83,20 +83,20 @@
     <div id="time"></div>
 </div>
 
-<script src="js/ts.js"></script>
-<script src="js/ts.res.js"></script>
-<script src="js/ts.project.js"></script>
-<script src="js/ts.renderer.js"></script>
-<script src="js/simulator/ts.sim.js"></script>
-<script src="js/simulator/ts.sim.Vehicle.js"></script>
-<script src="js/ts.gui.js"></script>
+<script src="js/movsim.js"></script>
+<script src="js/viewer/resources.js"></script>
+<script src="js/viewer/ts.project.js"></script>
+<script src="js/viewer/ts.renderer.js"></script>
+<script src="js/simulation/simulator.js"></script>
+<script src="js/vehicle/ts.sim.Vehicle.js"></script>
+<script src="js/viewer/gui.js"></script>
 
 <script>
     $(function () {
 
         // First load resources. Then call init. Otherwise images might not show up.
-        ts.res.loadResources(function () {
-            ts.init();
+        movsim.res.loadResources(function () {
+            movsim.init();
         });
     })
 </script>

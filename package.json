@@ -1,10 +1,9 @@
 {
-  "name": "animation",
+  "name": "movsim-js",
   "version": "0.0.1",
-  "description": "animation game",
-  "author": "rgerm",
-  "license": "BSD",
+  "description": "traffic simulation",
+  "author": "movsim",
+  "license": "Apache",
   "devDependencies": {
-    "grunt": "~0.4.0"
   }
 }
