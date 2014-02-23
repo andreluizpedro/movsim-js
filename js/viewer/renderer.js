@@ -5,12 +5,12 @@ movsim.namespace('movsim.renderer');
     // private vars
     var canvas;
     var ctx;
-    var images = ts.res.getImages();
+    var images = movsim.resources.getImages();
     var backgroundImage;
 
     // public methods
     ns.init = function () {
-        canvas = document.getElementById("tscanvas");
+        canvas = document.getElementById("animation-canvas");
         ctx = canvas.getContext("2d");
         backgroundImage = images.luechow;
         canvas.width = backgroundImage.width;

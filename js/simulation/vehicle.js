@@ -1,4 +1,4 @@
-movsim.namespace('movsim.simulation.vehicle')
+movsim.namespace('movsim.simulation.vehicle');
 
 (function (ns) {
     "use strict";

@@ -1,4 +1,4 @@
-movsim.namespace('movsim.res');
+movsim.namespace('movsim.resources');
 
 (function (ns) {
 
@@ -36,7 +36,7 @@ movsim.namespace('movsim.res');
         if (images[imgName]) {
             return images[imgName]
         }
-        throw new Error(imgName + ' image not defined in movsim.res');
+        throw new Error(imgName + ' image not defined in movsim.ressources');
     };
 
     ns.getImages = function () {
@@ -45,4 +45,4 @@ movsim.namespace('movsim.res');
 
     return ns;
 
-})(movsim.res);
+})(movsim.resources);

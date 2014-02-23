@@ -3,7 +3,7 @@ movsim.namespace('movsim.gui');
 (function (ns) {
 
     ns.init = function () {
-        $('.projectlabel').text('scenario: ' + movsim.project.getName());
+        $('.projectlabel').text('scenario: ' + 'ring road');
 
         addListeners()
 

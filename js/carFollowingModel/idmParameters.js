@@ -1,4 +1,4 @@
-movsim.namespace('movsim.carFollowingModel.idmParameters')
+movsim.namespace('movsim.carFollowingModel.idmParameters');
 
 (function (ns) {
     "use strict";
@@ -11,22 +11,23 @@ movsim.namespace('movsim.carFollowingModel.idmParameters')
     var s0Init = 2;
     var s1Init = 0;
 
-    var defaultCar = new idmParameters(v0Init, aInit, bInit, tInit, s0Init, s1Init);
+    var defaultCar = new IdmParameters(v0Init, aInit, bInit, tInit, s0Init, s1Init);
 
-    var defaultTruck = new idmParameters(0.8 * v0Init, 0.8 * aInit, bInit, 1.2 * tInit, s0Init, s1Init);
+    var defaultTruck = new IdmParameters(0.8 * v0Init, 0.8 * aInit, bInit, 1.2 * tInit, s0Init, s1Init);
 
-    function idmParameters(v0, a, b, T, s0, s1) {
-        if (v0 && a && b && T && s0 && s1) {
-            this.v0 = v0;
-            this.a = a;
-            this.b = b;
-            this.T = T;
-            this.s0 = s0;
-            this.s1 = s1;
-        } else {
+    function IdmParameters(v0, a, b, T, s0, s1) {
+        if (arguments.length !== 6) {
             throw new Error('missing parameters by creating intelligent driver model');
         }
+        this.v0 = v0;
+        this.a = a;
+        this.b = b;
+        this.T = T;
+        this.s0 = s0;
+        this.s1 = s1;
     }
+
+    ns.IdmParameters = IdmParameters;
 
     ns.getDefaultCar = function () {
         return defaultCar;
@@ -37,7 +38,7 @@ movsim.namespace('movsim.carFollowingModel.idmParameters')
     };
 
     ns.createParameters = function (v0, a, b, T, s0, s1) {
-        return new idmParameters(v0, a, b, T, s0, s1);
+        return new IdmParameters(v0, a, b, T, s0, s1);
     };
 
     return ns;

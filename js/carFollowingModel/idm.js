@@ -6,7 +6,7 @@ movsim.namespace('movsim.carFollowingModel.idm');
     var parameters;
 
     ns.setParameters = function (idmParameters) {
-        if (!(idmParameters instanceof movsim.carFollowingModel.idmParameters)) {
+        if (!(idmParameters instanceof movsim.carFollowingModel.idmParameters.IdmParameters)) {
             throw new Error('parameters not instanceof idmParameters');
         }
         parameters = idmParameters;
