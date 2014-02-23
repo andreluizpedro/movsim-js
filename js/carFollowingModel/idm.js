@@ -5,14 +5,14 @@ movsim.namespace('movsim.carFollowingModel.idm');
 
     var parameters;
 
-    ns.setParameters = function (idmParameters){
-        if(!(idmParameters instanceof movsim.carFollowingModel.idmParameters)){
+    ns.setParameters = function (idmParameters) {
+        if (!(idmParameters instanceof movsim.carFollowingModel.idmParameters)) {
             throw new Error('parameters not instanceof idmParameters');
         }
         parameters = idmParameters;
     };
 
-    ns.getParameters = function (){
+    ns.getParameters = function () {
         return parameters;
     };
 
@@ -27,7 +27,7 @@ movsim.namespace('movsim.carFollowingModel.idm');
         var leaderPosition = leadingVehicle ? leadingVehicle.position : 1000000;
         var leaderSpeed = leadingVehicle ? moveableLeader.speed : 100;
         var distance = leaderPosition - followingVehicle.position;
-        if(distance < 0){
+        if (distance < 0) {
             throw new Error('negative distance');
         }
         var effectiveDesiredSpeed = Math.min(parameters.v0, followingVehicle.vLimit, followingVehicle.vMax);

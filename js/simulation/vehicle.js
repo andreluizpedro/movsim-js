@@ -4,7 +4,7 @@ movsim.namespace('movsim.simulation.vehicle')
     "use strict";
 
     // Constructor
-    function Vehicle(vehicleParameters){
+    function Vehicle(vehicleParameters) {
         // console.log(' * new Vehicle length: ', length);
         this.carFollowingModel = new movsim.carFollowingModel.idm();
         var modelParameters = vehicleParameters.isTruck ? movsim.carFollowingModel.idmParameters.getDefaultTruck() : movsim.carFollowingModel.idmParameters.getDefaultCar();
@@ -23,15 +23,15 @@ movsim.namespace('movsim.simulation.vehicle')
     };
 
     // Factory
-    ns.create = function (vehicleParameters){
+    ns.create = function (vehicleParameters) {
         return new Vehicle(vehicleParameters);
     };
 
-    ns.getDefaultParameters = function (isTruck){
+    ns.getDefaultParameters = function (isTruck) {
         var vehicleParameters = {};
         vehicleParameters.isTruck = isTruck;
         vehicleParameters.length = (isTruck) ? 15 : 7;
-        vehicleParameters.width = (isTruck) ? 3: 2.5;
+        vehicleParameters.width = (isTruck) ? 3 : 2.5;
         vehicleParameters.position = 0;
         vehicleParameters.speed = 0;
         vehicleParameters.acc = 0;

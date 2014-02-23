@@ -4,10 +4,10 @@ movsim.namespace('movsim.simulation.roadSection');
     "use strict";
 
     // Constructor
-    function RoadSection(){
+    function RoadSection() {
         this.roadLanes = [];
 
-        for(var i=0; i<roadSectionParameters.numberOfLanes; i++){
+        for (var i = 0; i < roadSectionParameters.numberOfLanes; i++) {
             var roadLane = roadLane.create();
             this.roadLanes.push(roadLane);
         }
@@ -17,50 +17,51 @@ movsim.namespace('movsim.simulation.roadSection');
     };
 
     // Factory
-    ns.create = function (roadSectionParameters){
+    ns.create = function (roadSectionParameters) {
         return new RoadSection(roadSectionParameters);
     };
 
-    ns.getDefaultParameters = function (){
+    ns.getDefaultParameters = function () {
         var roadSectionParameters = {};
         roadSectionParameters.roadLength = 1000.;
         roadSectionParameters.numberOfLanes = 1;
-        roadSectionParameters.initDensityPerLane = 10./1000.;
+        roadSectionParameters.initDensityPerLane = 10. / 1000.;
         roadSectionParameters.initTruckFraction = 0.1;
         return roadSectionParameters;
     };
 
     var p = RoadSection.prototype;
-    p.timeStep = function (dt, simulationTime, iterationCount){
+    p.timeStep = function (dt, simulationTime, iterationCount) {
         calcAccelerations();
         // changeLanes(veh);
         updateSpeedAndPositions();
         // update sinks and sources
     };
 
-    p.calcAccelerations = function() {
-        for(var i=0; i< this.roadLanes.length; i++){
+    p.calcAccelerations = function () {
+        for (var i = 0; i < this.roadLanes.length; i++) {
             this.roadLanes[i].calcAccelerations();
         }
     };
 
-    p.updateSpeedAndPositions = function(dt) {
-        for(var i=0; i< this.roadLanes.length; i++){
+    p.updateSpeedAndPositions = function (dt) {
+        for (var i = 0; i < this.roadLanes.length; i++) {
             this.roadLanes[i].updateSpeedAndPosition(dt);
         }
     };
 
-    p._initializeVehicles = function (numberOfVehicles, truckFraction){
-        for(var i=0; i<numberOfVehicles; i++){
+    p._initializeVehicles = function (numberOfVehicles, truckFraction) {
+        for (var i = 0; i < numberOfVehicles; i++) {
             var vehicleParameters = movsim.simulation.vehicle.getDefaultParameters();
             vehicleParameters.isTruck = Math.random() < truckFraction;
             // initialize all vehicles with same speed determined by slower trucks
             vehicleParameters.speed = 0.8 * movsim.carFollowingModel.idmParameters.getDefaultTruck().v0;
-            vehicleParameters.position = i*100; // TODO init correctly
+            vehicleParameters.position = i * 100; // TODO init correctly
             var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
             var lane = i % roadLanes.length;
             this.roadLanes[lane].addVehicle(vehicle);
-        };
+        }
+        ;
     };
 
     return ns;

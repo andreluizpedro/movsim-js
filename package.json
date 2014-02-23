@@ -1,9 +1,9 @@
 {
-  "name": "movsim-js",
-  "version": "0.0.1",
-  "description": "traffic simulation",
-  "author": "movsim",
-  "license": "Apache",
-  "devDependencies": {
-  }
+    "name": "movsim-js",
+    "version": "0.0.1",
+    "description": "traffic simulation",
+    "author": "movsim",
+    "license": "Apache",
+    "devDependencies": {
+    }
 }
