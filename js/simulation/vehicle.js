@@ -6,7 +6,7 @@ movsim.namespace('movsim.simulation.vehicle');
     // Constructor
     function Vehicle(vehicleParameters) {
         // console.log(' * new Vehicle length: ', length);
-        this.carFollowingModel = new movsim.carFollowingModel.idm();
+        this.carFollowingModel = movsim.carFollowingModel.idm;
         var modelParameters = vehicleParameters.isTruck ? movsim.carFollowingModel.idmParameters.getDefaultTruck() : movsim.carFollowingModel.idmParameters.getDefaultCar();
         this.carFollowingModel.setParameters(modelParameters);
 

@@ -6,7 +6,9 @@ movsim.namespace('movsim.simulation.roadNetwork');
     // Constructor
     function RoadNetwork() {
         this.roadSections = [];
-    };
+    }
+
+    ns.RoadNetwork = RoadNetwork;
 
     // Factory
     ns.create = function () {
