@@ -32,22 +32,22 @@ movsim.namespace('movsim.simulation.roadSection');
 
     var p = RoadSection.prototype;
     p.timeStep = function (dt, simulationTime, iterationCount) {
-        calcAccelerations();
+        this.calcAccelerations();
         // changeLanes(veh);
-        updateSpeedAndPositions();
+        this.updateSpeedAndPositions(dt);
         // update sinks and sources
     };
 
     p.calcAccelerations = function () {
-        for (var i = 0; i < this.roadLanes.length; i++) {
-            this.roadLanes[i].calcAccelerations();
-        }
+        this.roadLanes.forEach(function (roadLane) {
+            roadLane.calcAccelerations();
+        });
     };
 
     p.updateSpeedAndPositions = function (dt) {
-        for (var i = 0; i < this.roadLanes.length; i++) {
-            this.roadLanes[i].updateSpeedAndPosition(dt);
-        }
+        this.roadLanes.forEach(function (roadLane) {
+            roadLane.updateSpeedAndPosition(dt);
+        });
     };
 
     p._initializeVehicles = function (numberOfVehicles, truckFraction) {

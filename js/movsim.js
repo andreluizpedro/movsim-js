@@ -17,7 +17,7 @@ movsim.namespace = function (name) {
     var simulator;
     var renderer;
     var running = false;
-    var dt = 0;
+    var dt = 1;
     var simulationTime = 0;
     var iterationCount = 0;
 
@@ -25,15 +25,18 @@ movsim.namespace = function (name) {
     ns.init = function () {
         console.log('movsim.init() is called');
 
+        // init simulation
         var roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
-
-        simulator = movsim.simulation.simulator.init(roadNetwork);
+        simulator = movsim.simulation.simulator;
+        simulator.init(roadNetwork);
 
         // init gui
         movsim.gui.init();
+
         // init renderer (drawing utilities)
         renderer = movsim.renderer;
         renderer.init();
+        renderer.drawBackground();
 
         // start default simulation
         ns.start();
@@ -49,7 +52,7 @@ movsim.namespace = function (name) {
     };
 
     ns.reset = function () {
-        dt = 0;
+        dt = 1;
         simulationTime = 0;
         iterationCount = 0;
     };

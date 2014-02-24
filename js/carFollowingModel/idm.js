@@ -21,17 +21,18 @@ movsim.namespace('movsim.carFollowingModel.idm');
         var sstar = parameters.s0 + v * parameters.T + 0.5 * v * (v - vl) / Math.sqrt(parameters.a * parameters.b);
         var accInt = -parameters.a * Math.pow(sstar / Math.max(s, parameters.s0), 2);
         return Math.max(-20, accFree + accInt);
-    };
+    }
 
-    ns.calculateAcceleration = function (leadingVehicle) {
+    ns.calculateAcceleration = function (followingVehicle, leadingVehicle) {
         var leaderPosition = leadingVehicle ? leadingVehicle.position : 1000000;
-        var leaderSpeed = leadingVehicle ? moveableLeader.speed : 100;
+        var leaderSpeed = leadingVehicle ? leadingVehicle.speed : 100;
         var distance = leaderPosition - followingVehicle.position;
         if (distance < 0) {
             throw new Error('negative distance');
         }
         var effectiveDesiredSpeed = Math.min(parameters.v0, followingVehicle.vLimit, followingVehicle.vMax);
-        return calcAcc(distance, effectiveDesiredSpeed, leaderSpeed);
+        var acc = calcAcc(distance, followingVehicle.speed, leaderSpeed, effectiveDesiredSpeed);
+        return acc;
     };
 
     return ns;

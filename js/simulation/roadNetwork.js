@@ -21,9 +21,9 @@ movsim.namespace('movsim.simulation.roadNetwork');
     };
 
     p.timeStep = function (dt, simulationTime, iterationCount) {
-        for (var i = 0; i < roadSections.length; i++) {
-            this.roadSections[i].timeStep(dt, simulationTime, iterationCount);
-        }
+        this.roadSections.forEach(function (roadSecton) {
+            roadSecton.timeStep(dt, simulationTime, iterationCount);
+        });
     };
 
     return ns;

@@ -2,10 +2,10 @@ movsim.namespace('movsim.simulation.simulator');
 
 (function (ns) {
 
-    var roadNetwork;
+    var roadNetwork = {};
 
-    ns.init = function (roadNetwork) {
-        roadNetwork = roadNetwork;
+    ns.init = function (roadNetworkParam) {
+        roadNetwork = $.extend(roadNetwork, roadNetworkParam);
     };
 
     /**

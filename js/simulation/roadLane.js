@@ -19,11 +19,11 @@ movsim.namespace('movsim.simulation.roadLane');
     };
 
     p.calcAccelerations = function () {
-        for (var i = 0; i < this.vehicles.length; i++) {
+        for (var i = 0, len = this.vehicles.length; i < len; i++) {
             var vehicle = this.vehicles[i];
             // TODO special case ringroad
-            if (vehicle.length > 1) {
-                var leader = (i == this.vehicles.length - 1) ? this.vehicles[0] : this.vehicles[i + 1];
+            if (len > 1) {
+                var leader = (i === len - 1) ? this.vehicles[0] : this.vehicles[i + 1];
                 vehicle.updateAcceleration(leader);
             }
             else {
@@ -33,10 +33,10 @@ movsim.namespace('movsim.simulation.roadLane');
     };
 
     p.updateSpeedAndPosition = function (dt) {
-        for (var i = 0; i < this.vehicles.length; i++) {
+        this.vehicles.forEach(function (vehicle) {
             // TODO better naming for ide
-            this.vehicles[i].updateSpeedAndPosition(dt);
-        }
+            vehicle.updateSpeedAndPosition(dt)
+        });
     };
 
     p._sortVehicles = function () {
