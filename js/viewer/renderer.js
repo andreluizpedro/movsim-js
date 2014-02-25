@@ -10,7 +10,6 @@ movsim.namespace('movsim.renderer');
 
     // public methods
     ns.init = function () {
-        debugger;
         canvas = document.getElementById("animation-canvas");
         ctx = canvas.getContext("2d");
         backgroundImage = images.bgRoundabout;
