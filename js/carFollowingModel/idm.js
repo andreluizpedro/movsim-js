@@ -16,7 +16,8 @@ movsim.namespace('movsim.carFollowingModel.idm');
         return parameters;
     };
 
-    function calcAcc(s, v, vl, v0eff) {
+	// export for tests
+    ns.calculateAccelerationSimple = function calcAcc(s, v, vl, v0eff) {
         var accFree = parameters.a * (1 - Math.pow(v / v0eff, 4));
         var sstar = parameters.s0 + v * parameters.T + 0.5 * v * (v - vl) / Math.sqrt(parameters.a * parameters.b);
         var accInt = -parameters.a * Math.pow(sstar / Math.max(s, parameters.s0), 2);

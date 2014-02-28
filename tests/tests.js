@@ -17,7 +17,7 @@ test("namespace function", function () {
 });
 
 
-module('car following model parameters');
+module('idm car following model and parameters');
 test('IDM parameters car default', function () {
     var carDefaultIdmParameters = movsim.carFollowingModel.idmParameters.getDefaultCar();
 
@@ -40,6 +40,25 @@ test('IDM parameters truck default', function () {
     deepEqual(truckDefaultIdmParameters.s0, 2, 's0');
     deepEqual(truckDefaultIdmParameters.s1, 0, 's1');
 });
+
+test('IDM acceleration function', function () {
+    var modelParameters = movsim.carFollowingModel.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);
+	var idmModel = movsim.carFollowingModel.idm;
+	idmModel.setParameters(modelParameters);
+
+    ok(modelParameters instanceof movsim.carFollowingModel.idmParameters.IdmParameters);
+    //ok(idmModel instanceof movsim.carFollowingModel.idm);
+    
+    deepEqual(idmModel.getParameters(), modelParameters, 'setter');
+    //s, v, vl, v0eff
+    // todo 
+    var v0eff=modelParameters.v0;
+    var maxDifference = 0.00001;
+    close(idmModel.calculateAccelerationSimple(100000, v0eff, modelParameters.v0, v0eff), 0,  maxDifference, 'leader at infinity');
+    close(idmModel.calculateAccelerationSimple(100000, 0, modelParameters.v0, v0eff), modelParameters.a, maxDifference, 'leader at infinity');
+    // todo further generic situations
+});
+
 
 module('road network');
 test('road network', function () {
