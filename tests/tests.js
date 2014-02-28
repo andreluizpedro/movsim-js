@@ -53,10 +53,12 @@ test('IDM acceleration function', function () {
     //s, v, vl, v0eff
     // todo 
     var v0eff=modelParameters.v0;
-    var maxDifference = 0.00001;
-    close(idmModel.calculateAccelerationSimple(100000, v0eff, modelParameters.v0, v0eff), 0,  maxDifference, 'leader at infinity');
-    close(idmModel.calculateAccelerationSimple(100000, 0, modelParameters.v0, v0eff), modelParameters.a, maxDifference, 'leader at infinity');
-    // todo further generic situations
+    var maxDifference = 0.0001;
+    QUnit.close(idmModel.calculateAccelerationSimple(100000, v0eff, modelParameters.v0, v0eff), 0,  maxDifference);
+	QUnit.close(idmModel.calculateAccelerationSimple(100000, 0, modelParameters.v0, v0eff), modelParameters.a, maxDifference);
+	QUnit.close(idmModel.calculateAccelerationSimple(100, v0eff, 0.5*v0eff, v0eff), -1.5962, maxDifference);
+    
+    // todo further situations
 });
 
 
