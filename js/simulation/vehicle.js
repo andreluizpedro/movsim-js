@@ -26,6 +26,14 @@ movsim.namespace('movsim.simulation.vehicle');
     ns.create = function (vehicleParameters) {
         return new Vehicle(vehicleParameters);
     };
+    
+    ns.create = function () {
+        return new Vehicle(this.getDefaultParameters());
+    };
+
+    ns.getDefaultParameters = function () {
+        return vehicleParameters(false);
+    };
 
     ns.getDefaultParameters = function (isTruck) {
         var vehicleParameters = {};

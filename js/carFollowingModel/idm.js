@@ -17,6 +17,10 @@ movsim.namespace('movsim.carFollowingModel.idm');
     ns.getParameters = function () {
         return parameters;
     };
+    
+    ns.getMaxDeceleration = function () {
+        return maxDeceleration;
+    }
 
 	// export for tests
     ns.calculateAccelerationSimple = function calcAcc(s, v, vl, v0eff) {

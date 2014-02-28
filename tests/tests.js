@@ -41,15 +41,20 @@ test('IDM parameters truck default', function () {
     deepEqual(truckDefaultIdmParameters.s1, 0, 's1');
 });
 
-test('IDM acceleration function', function () {
+test('IDM simple acceleration function', function () {
     var modelParameters = movsim.carFollowingModel.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);
 	var idmModel = movsim.carFollowingModel.idm;
 	idmModel.setParameters(modelParameters);
+    
+    //var idmTruck = movsim.carFollowingModel.idm;
+    //var idmTruckParam = movsim.carFollowingModel.idmParameters.getDefaultTruck();
+    //idmTruck.setParameters(idmTruckParam);
 
     ok(modelParameters instanceof movsim.carFollowingModel.idmParameters.IdmParameters);
-    //ok(idmModel instanceof movsim.carFollowingModel.idm);
     
-    deepEqual(idmModel.getParameters(), modelParameters, 'setter');
+    deepEqual(idmModel.getParameters(), modelParameters, 'setter 1');
+    //deepEqual(idmTruck.getParameters(), idmTruckParam, 'setter 2' );
+    
     //s, v, vl, v0eff
     // todo 
     var v0eff=modelParameters.v0;
@@ -57,8 +62,27 @@ test('IDM acceleration function', function () {
     QUnit.close(idmModel.calculateAccelerationSimple(100000, v0eff, modelParameters.v0, v0eff), 0,  maxDifference);
 	QUnit.close(idmModel.calculateAccelerationSimple(100000, 0, modelParameters.v0, v0eff), modelParameters.a, maxDifference);
 	QUnit.close(idmModel.calculateAccelerationSimple(100, v0eff, 0.5*v0eff, v0eff), -1.5962, maxDifference);
+    QUnit.close(idmModel.calculateAccelerationSimple(10, v0eff, 0.5*v0eff, v0eff), -idmModel.getMaxDeceleration(), maxDifference);
     
     // todo further situations
+});
+
+module('vehicle');
+test('vehicle parameter', function () {
+    var vehicleParameters = movsim.simulation.vehicle.getDefaultParameters();
+    var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
+    
+    var vehicle2 = movsim.simulation.vehicle.create();
+    equal(vehicle.isTruck, vehicleParameters.isTruck, 'isTruck');
+
+    deepEqual(vehicle.position, vehicleParameters.position, 'position');
+    deepEqual(vehicle.speed, vehicleParameters.speed, 'speed');
+    deepEqual(vehicle.acc, vehicleParameters.acc, 'acc');
+    deepEqual(vehicle.length, vehicleParameters.length, 'length');
+    deepEqual(vehicle.width, vehicleParameters.width, 'width');
+    
+    
+    
 });
 
 
