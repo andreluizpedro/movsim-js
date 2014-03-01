@@ -63,7 +63,6 @@ test('IDM simple acceleration function', function () {
 	QUnit.close(idmModel.calculateAccelerationSimple(100000, 0, modelParameters.v0, v0eff), modelParameters.a, maxDifference);
 	QUnit.close(idmModel.calculateAccelerationSimple(100, v0eff, 0.5*v0eff, v0eff), -1.5962, maxDifference);
     QUnit.close(idmModel.calculateAccelerationSimple(10, v0eff, 0.5*v0eff, v0eff), -idmModel.getMaxDeceleration(), maxDifference);
-    
     // todo further situations
 });
 
@@ -73,7 +72,7 @@ test('vehicle parameter', function () {
     var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
     var vehicle2 = movsim.simulation.vehicle.create();
 
-    deepEqual(vehicle, vehicle2, 'vehicle.create() === vehicle.create(vehicle.getDefaultParameters())')
+    deepEqual(vehicle, vehicle2, 'vehicle.create() === vehicle.create(vehicle.getDefaultParameters())');
     deepEqual(vehicle.position, vehicleParameters.position, 'position');
     deepEqual(vehicle.speed, vehicleParameters.speed, 'speed');
     deepEqual(vehicle.acc, vehicleParameters.acc, 'acc');

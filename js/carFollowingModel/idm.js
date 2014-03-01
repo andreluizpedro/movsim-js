@@ -22,8 +22,7 @@ movsim.namespace('movsim.carFollowingModel.idm');
         return maxDeceleration;
     }
 
-	// export for tests
-    ns.calculateAccelerationSimple = function calcAcc(s, v, vl, v0eff) {
+    function calcAcc(s, v, vl, v0eff) {
         var accFree = parameters.a * (1 - Math.pow(v / v0eff, parameters.delta));
         var sstar = parameters.s0 + v * parameters.T +  parameters.s1 * Math.sqrt((v + 0.0001) / v0eff) + 0.5 * v * (v - vl) / Math.sqrt(parameters.a * parameters.b);
         var accInt = -parameters.a * Math.pow(sstar / Math.max(s, parameters.s0), 2);
@@ -41,6 +40,12 @@ movsim.namespace('movsim.carFollowingModel.idm');
         var acc = calcAcc(distance, followingVehicle.speed, leaderSpeed, effectiveDesiredSpeed);
         return acc;
     };
+
+
+    // exports for tests
+    if (QUnit) {
+        ns.calculateAccelerationSimple = calcAcc;
+    }
 
     return ns;
 
