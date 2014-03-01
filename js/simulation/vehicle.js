@@ -20,22 +20,16 @@ movsim.namespace('movsim.simulation.vehicle');
         this.position = vehicleParameters.position;
         this.speed = vehicleParameters.speed;
         this.acc = vehicleParameters.acc;
-    };
+    }
 
     // Factory
     ns.create = function (vehicleParameters) {
+        vehicleParameters = vehicleParameters || this.getDefaultParameters();
         return new Vehicle(vehicleParameters);
-    };
-    
-    ns.create = function () {
-        return new Vehicle(this.getDefaultParameters());
-    };
-
-    ns.getDefaultParameters = function () {
-        return vehicleParameters(false);
     };
 
     ns.getDefaultParameters = function (isTruck) {
+        isTruck = isTruck || false;
         var vehicleParameters = {};
         vehicleParameters.isTruck = isTruck;
         vehicleParameters.length = (isTruck) ? 15 : 7;

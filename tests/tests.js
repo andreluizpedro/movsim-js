@@ -71,16 +71,15 @@ module('vehicle');
 test('vehicle parameter', function () {
     var vehicleParameters = movsim.simulation.vehicle.getDefaultParameters();
     var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
-    
     var vehicle2 = movsim.simulation.vehicle.create();
-    equal(vehicle.isTruck, vehicleParameters.isTruck, 'isTruck');
 
+    deepEqual(vehicle, vehicle2, 'vehicle.create() === vehicle.create(vehicle.getDefaultParameters())')
     deepEqual(vehicle.position, vehicleParameters.position, 'position');
     deepEqual(vehicle.speed, vehicleParameters.speed, 'speed');
     deepEqual(vehicle.acc, vehicleParameters.acc, 'acc');
     deepEqual(vehicle.length, vehicleParameters.length, 'length');
     deepEqual(vehicle.width, vehicleParameters.width, 'width');
-    
+    debugger;
     
     
 });
