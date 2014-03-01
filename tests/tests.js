@@ -72,14 +72,14 @@ test('vehicle parameter', function () {
     var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
     var vehicle2 = movsim.simulation.vehicle.create();
 
-    deepEqual(vehicle, vehicle2, 'vehicle.create() === vehicle.create(vehicle.getDefaultParameters())');
+//    deepEqual(vehicle, vehicle2, 'vehicle.create() === vehicle.create(vehicle.getDefaultParameters())');
+    ok(vehicle.id !== vehicle2.id, 'two veh with different ids');
     deepEqual(vehicle.position, vehicleParameters.position, 'position');
     deepEqual(vehicle.speed, vehicleParameters.speed, 'speed');
     deepEqual(vehicle.acc, vehicleParameters.acc, 'acc');
     deepEqual(vehicle.length, vehicleParameters.length, 'length');
     deepEqual(vehicle.width, vehicleParameters.width, 'width');
-    debugger;
-    
+
     
 });
 

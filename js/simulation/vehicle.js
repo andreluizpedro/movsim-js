@@ -3,9 +3,11 @@ movsim.namespace('movsim.simulation.vehicle');
 (function (ns) {
     "use strict";
 
+    var numberOfCreatedVehicles = 0;
+
     // Constructor
     function Vehicle(vehicleParameters) {
-        // console.log(' * new Vehicle length: ', length);
+        this.id = ++numberOfCreatedVehicles;
         this.carFollowingModel = movsim.carFollowingModel.idm;
         var modelParameters = vehicleParameters.isTruck ? movsim.carFollowingModel.idmParameters.getDefaultTruck() : movsim.carFollowingModel.idmParameters.getDefaultCar();
         this.carFollowingModel.setParameters(modelParameters);
@@ -52,6 +54,7 @@ movsim.namespace('movsim.simulation.vehicle');
         if (this.speed < 0) {
             this.speed = 0;
         }
+        console.log('vehicle ', this.id, '   position: ', this.position, '   speed: ', this.speed, '    acc: ', this.acc);
     };
 
     return ns;

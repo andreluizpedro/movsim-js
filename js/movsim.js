@@ -61,6 +61,8 @@ movsim.namespace = function (name) {
         if (running) {
 
             // update state
+            simulationTime = simulationTime + dt;
+            iterationCount++;
             simulator.timeStep(dt, simulationTime, iterationCount);
 
             // draw stuff
@@ -69,9 +71,10 @@ movsim.namespace = function (name) {
             renderer.drawVehicles();
 
             // request new frame
-//        requestAnimationFrame(function() {
-//            mainLoop();
-//        });
+            requestAnimationFrame(function () {
+                mainLoop();
+                running = false; // just two iterations for now
+            });
         }
 
     }

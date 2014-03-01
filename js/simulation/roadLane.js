@@ -22,13 +22,15 @@ movsim.namespace('movsim.simulation.roadLane');
         for (var i = 0, len = this.vehicles.length; i < len; i++) {
             var vehicle = this.vehicles[i];
             // TODO special case ringroad
-            if (len > 1) {
-                var leader = (i === len - 1) ? this.vehicles[0] : this.vehicles[i + 1];
-                vehicle.updateAcceleration(leader);
-            }
-            else {
-                vehicle.updateAcceleration();
-            }
+            var leader = this.vehicles[i+1];
+            vehicle.updateAcceleration(leader);
+//            if (len > 1) {
+//                var leader = (i === len - 1) ? this.vehicles[0] : this.vehicles[i + 1];
+//                vehicle.updateAcceleration(leader);
+//            }
+//            else {
+//                vehicle.updateAcceleration();
+//            }
         }
     };
 

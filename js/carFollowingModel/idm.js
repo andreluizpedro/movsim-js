@@ -43,7 +43,7 @@ movsim.namespace('movsim.carFollowingModel.idm');
 
 
     // exports for tests
-    if (QUnit) {
+    if (window.QUnit) {
         ns.calculateAccelerationSimple = calcAcc;
     }
 
