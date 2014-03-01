@@ -7,14 +7,20 @@ movsim.namespace('movsim.renderer');
     var ctx;
     var images = movsim.resources.getImages();
     var backgroundImage;
+    var roadNetwork;
+    var car;
+    var truck;
 
     // public methods
-    ns.init = function () {
+    ns.init = function (network) {
+        roadNetwork = network;
         canvas = document.getElementById("animation-canvas");
         ctx = canvas.getContext("2d");
         backgroundImage = images.bgRoundabout;
         canvas.width = backgroundImage.width;
         canvas.height = backgroundImage.height;
+        car = images.car1;
+        truck = images.car2;
     };
 
     ns.drawBackground = function () {
@@ -26,6 +32,16 @@ movsim.namespace('movsim.renderer');
     };
 
     ns.drawVehicles = function () {
+        roadNetwork.roadSections.forEach(function (roadSection) {
+            roadSection.roadLanes.forEach(function (roadLane) {
+                roadLane.vehicles.forEach(function (vehicle) {
+                    var x = vehicle.position/2;
+                    var y = 300;
+                    var vehImage = vehicle.isTruck ? truck : car;
+                    ctx.drawImage(vehImage, x, y, 30, 20);
+                })
+            })
+        })
 
     };
 

@@ -16,6 +16,7 @@ movsim.namespace = function (name) {
     // private vars
     var simulator;
     var renderer;
+    var gui;
     var running = false;
     var dt = 1;
     var simulationTime = 0;
@@ -32,11 +33,12 @@ movsim.namespace = function (name) {
         simulator.init(roadNetwork);
 
         // init gui
-        movsim.gui.init();
+        gui = movsim.gui;
+        gui.init();
 
         // init renderer (drawing utilities)
         renderer = movsim.renderer;
-        renderer.init();
+        renderer.init(roadNetwork);
         renderer.drawBackground();
 
         // start default simulation
@@ -82,8 +84,12 @@ movsim.namespace = function (name) {
             renderer.drawVehicles();
 
             // just 10 iterations for now
-            if (iterationCount >= 10) {
+            if (iterationCount >= 1000) {
                 running = false;
+            }
+
+            if (iterationCount % 100 === 0) {
+                console.log('timeStep: ', dt, ' -- simTime: ', simulationTime, ' -- iterationcount: ', iterationCount);
             }
 
         } else {

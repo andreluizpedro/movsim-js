@@ -2,21 +2,23 @@ movsim.namespace('movsim.gui');
 
 (function (ns) {
 
+    var $mainControl = $('#maincontrol');
+
     ns.init = function () {
         $('.projectlabel').text('scenario: ' + 'ring road');
+//        $mainControl.text('Stop');
 
         addListeners()
 
     };
 
     function addListeners() {
-        var $maincontrol = $('#maincontrol');
-        $maincontrol.on('click', function () {
-            if ($maincontrol.text() === 'Start') {
-                $maincontrol.text('Stop');
+        $mainControl.on('click', function () {
+            if ($mainControl.text() === 'Start') {
+                $mainControl.text('Stop');
                 movsim.start();
             } else {
-                $maincontrol.text('Start');
+                $mainControl.text('Start');
                 movsim.stop();
             }
         })
