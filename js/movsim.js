@@ -20,6 +20,7 @@ movsim.namespace = function (name) {
     var dt = 1;
     var simulationTime = 0;
     var iterationCount = 0;
+    var time;
 
     // public methods
     ns.init = function () {
@@ -57,8 +58,18 @@ movsim.namespace = function (name) {
         iterationCount = 0;
     };
 
+//    var fps = 60;
+//    var interval = 1000 / fps;
+
     function mainLoop() {
         if (running) {
+
+            // request new frame see http://creativejs.com/resources/requestanimationframe/
+            requestAnimationFrame(mainLoop);
+
+            var now = new Date().getTime();
+            dt = (now - (time || now)) / 1000;
+            time = now;
 
             // update state
             simulationTime = simulationTime + dt;
@@ -70,11 +81,13 @@ movsim.namespace = function (name) {
             renderer.drawBackground();
             renderer.drawVehicles();
 
-            // request new frame
-            requestAnimationFrame(function () {
-                mainLoop();
-                running = false; // just two iterations for now
-            });
+            // just 10 iterations for now
+            if (iterationCount >= 10) {
+                running = false;
+            }
+
+        } else {
+            console.log('simulation finished. simulationTime: ', simulationTime, '  iterationCount: ', iterationCount);
         }
 
     }
