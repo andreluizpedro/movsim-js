@@ -10,7 +10,8 @@ movsim.namespace('movsim.resources');
         car2: '../img/carSmall2.png',
         truck1: '../img/truck1Small.png',
         bgRoundabout: '../img/backgroundParis.gif',
-        luechow: '../img/luechow.png'
+        luechow: '../img/luechow.png',
+        ringRoadOneLane: '../img/oneLanesRoadRealistic_wideBoundaries_cropped2.png'
     };
 
     // public functions
