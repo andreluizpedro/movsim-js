@@ -22,13 +22,14 @@ movsim.namespace = function (name) {
     var simulationTime = 0;
     var iterationCount = 0;
     var time;
+    var roadNetwork;
 
     // public methods
     ns.init = function () {
         console.log('movsim.init() is called');
 
         // init simulation
-        var roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
+        roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
         simulator = movsim.simulation.simulator;
         simulator.init(roadNetwork);
 
@@ -39,6 +40,7 @@ movsim.namespace = function (name) {
         // init renderer (drawing utilities)
         renderer = movsim.renderer;
         renderer.init(roadNetwork);
+        renderer.drawRoads();
         renderer.drawBackground();
 
         // start default simulation
@@ -47,6 +49,7 @@ movsim.namespace = function (name) {
 
     ns.start = function () {
         running = true;
+        time = new Date().getTime();
         mainLoop();
     };
 
@@ -81,7 +84,8 @@ movsim.namespace = function (name) {
             // draw stuff
             renderer.clear();
             renderer.drawBackground();
-            renderer.drawVehicles();
+            renderer.drawRoads();
+            renderer.drawVehicles(roadNetwork);
 
             // just 10 iterations for now
             if (iterationCount >= 1000) {
@@ -93,7 +97,11 @@ movsim.namespace = function (name) {
             }
 
         } else {
-            console.log('simulation finished. simulationTime: ', simulationTime, '  iterationCount: ', iterationCount);
+            console.log('simulation paused. simulationTime: ', simulationTime, '  iterationCount: ', iterationCount);
+            roadNetwork.roadSections[0].roadLanes[0].vehicles.forEach(function (vehicle) {
+//                console.log('vehicle: ', vehicle);
+                console.log('vehicle: ', vehicle.id , '  pos: ' ,vehicle.position.toFixed(2), '  speed: ', vehicle.speed.toFixed(2), '  acc: ', vehicle.acc.toFixed(4));
+            });
         }
 
     }

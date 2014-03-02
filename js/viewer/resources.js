@@ -6,7 +6,8 @@ movsim.namespace('movsim.resources');
     var images = {};
     var sources = {
         car1: '../img/redCarSmall.png',
-        car2: '../img/blueCarSmall.png',
+        car2: '../img/carSmall2.png',
+        truck1: '../img/truck1Small.png',
         bgRoundabout: '../img/backgroundParis.gif',
         luechow: '../img/luechow.png'
     };

@@ -19,8 +19,9 @@ movsim.namespace('movsim.renderer');
         backgroundImage = images.bgRoundabout;
         canvas.width = backgroundImage.width;
         canvas.height = backgroundImage.height;
-        car = images.car1;
-        truck = images.car2;
+
+        car = images.car2;
+        truck = images.truck1;
     };
 
     ns.drawBackground = function () {
@@ -31,27 +32,36 @@ movsim.namespace('movsim.renderer');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     };
 
+    ns.drawRoads = function () {
+
+    };
+
     ns.drawVehicles = function () {
         roadNetwork.roadSections.forEach(function (roadSection) {
             roadSection.roadLanes.forEach(function (roadLane) {
                 roadLane.vehicles.forEach(function (vehicle) {
-                    var x = vehicle.position/2;
+////                    for(var i=0; i<n; i++){
+//                        var veh_len=vehicle.length;
+//                        var veh_w= vehicle.width;
+//                        var x=vehPix[i].x;
+//                        var y=vehPix[i].y;
+//                        var sinphi=vehPix[i].sphi;
+//                        var cosphi=vehPix[i].cphi;
+//
+//                        ctx.setTransform(cosphi, sinphi, -sinphi, cosphi, x, y);
+//                        vehImg=(veh[i].type=="car") ? carImg : truckImg;
+//                        ctx.drawImage(vehImg, -0.5*veh_len, -0.5* veh_w, veh_len, veh_w);
+////                    }
+
+                    var x = vehicle.position / 2;
                     var y = 300;
                     var vehImage = vehicle.isTruck ? truck : car;
                     ctx.drawImage(vehImage, x, y, 30, 20);
                 })
             })
-        })
+        });
 
     };
-
-    /*ns.getCanvas = function () {
-     return canvas;
-     };
-
-     ns.getCtx = function () {
-     return ctx;
-     };*/
 
     return ns;
 
