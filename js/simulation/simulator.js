@@ -1,6 +1,7 @@
 movsim.namespace('movsim.simulation.simulator');
 
 (function (ns) {
+    "use strict";
 
     var roadNetwork;
 

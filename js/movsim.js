@@ -2,6 +2,8 @@
 var movsim = {};
 
 movsim.namespace = function (name) {
+    "use strict";
+
     var parts = name.split('.');
     var obj = window;
     parts.forEach(function (ns) {
@@ -12,6 +14,7 @@ movsim.namespace = function (name) {
 };
 
 (function (ns) {
+    "use strict";
 
     // private vars
     var simulator;

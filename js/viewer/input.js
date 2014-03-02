@@ -1,4 +1,6 @@
 (function () {
+    "use strict";
+
     var pressedKeys = {};
 
     function setKey(event, status) {

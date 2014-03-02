@@ -1,6 +1,7 @@
 movsim.namespace('movsim.resources');
 
 (function (ns) {
+    "use strict";
 
     // private vars
     var images = {};
@@ -28,7 +29,7 @@ movsim.namespace('movsim.resources');
                 if (loadedImages >= numImagesToLoad) {
                     callback();
                 }
-            }
+            };
             images[src].src = sources[src];
         }
     };

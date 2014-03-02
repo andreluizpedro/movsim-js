@@ -14,7 +14,7 @@ movsim.namespace('movsim.simulation.roadSection');
         var vehiclesInOneLane = roadSectionParameters.roadLength * roadSectionParameters.initDensityPerLane;
         var numberOfVehicles = Math.floor(roadSectionParameters.numberOfLanes * vehiclesInOneLane);
         this._initializeVehicles(numberOfVehicles, roadSectionParameters.initTruckFraction);
-    };
+    }
 
     // Factory
     ns.create = function (roadSectionParameters) {
@@ -23,9 +23,9 @@ movsim.namespace('movsim.simulation.roadSection');
 
     ns.getDefaultParameters = function () {
         var roadSectionParameters = {};
-        roadSectionParameters.roadLength = 1000.;
+        roadSectionParameters.roadLength = 1000;
         roadSectionParameters.numberOfLanes = 1;
-        roadSectionParameters.initDensityPerLane = 10. / 1000.;
+        roadSectionParameters.initDensityPerLane = 10 / 1000;
         roadSectionParameters.initTruckFraction = 0.1;
         return roadSectionParameters;
     };

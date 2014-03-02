@@ -1,6 +1,7 @@
 movsim.namespace('movsim.gui');
 
 (function (ns) {
+    "use strict";
 
     var $mainControl = $('#maincontrol');
 
@@ -8,7 +9,7 @@ movsim.namespace('movsim.gui');
         $('.projectlabel').text('scenario: ' + 'ring road');
 //        $mainControl.text('Stop');
 
-        addListeners()
+        addListeners();
 
     };
 
@@ -21,7 +22,7 @@ movsim.namespace('movsim.gui');
                 $mainControl.text('Start');
                 movsim.stop();
             }
-        })
+        });
     }
 
     return ns;

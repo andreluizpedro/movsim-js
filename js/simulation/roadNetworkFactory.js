@@ -1,6 +1,7 @@
 movsim.namespace('movsim.simulation.roadNetworkFactory');
 
 (function (ns) {
+    "use strict";
 
     ns.createRingRoad = function (roadLength, numberOfLanes) {
         var roadNetwork = movsim.simulation.roadNetwork.create();

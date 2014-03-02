@@ -1,6 +1,7 @@
 movsim.namespace('movsim.renderer');
 
 (function (ns) {
+    "use strict";
 
     ns.RingRoadRenderer = function () {
 
@@ -45,8 +46,8 @@ movsim.namespace('movsim.renderer');
                         var y = 300;
                         var vehImage = vehicle.isTruck ? truck : car;
                         ctx.drawImage(vehImage, x, y, 30, 20);
-                    })
-                })
+                    });
+                });
             });
         };
 
