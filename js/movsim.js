@@ -87,8 +87,8 @@ movsim.namespace = function (name) {
             renderer.drawRoads();
             renderer.drawVehicles(roadNetwork);
 
-            // just 10 iterations for now
-            if (iterationCount >= 1000) {
+            // limit iterations for now
+            if (iterationCount >= 10000) {
                 running = false;
             }
 
