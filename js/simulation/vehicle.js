@@ -7,22 +7,21 @@ movsim.namespace('movsim.simulation.vehicle');
 
     // @constructor
     function Vehicle(vehicleParameters) {
-        this.id = ++numberOfCreatedVehicles;
-
-        this.isTruck = vehicleParameters.isTruck;
-        
-        this.carFollowingModelParameters = vehicleParameters.isTruck ? movsim.carfollowing.idmParameters.getDefaultTruck() : movsim.carfollowing.idmParameters.getDefaultCar();
-        
-        // TODO create MOBIL lane-changing model
-        this.vLimit = this.carFollowingModelParameters.v0; // if effective speed limits, vLimit<v0
-        this.vMax = this.carFollowingModelParameters.v0; // if vehicle restricts speed, vMax<vLimit, v0
-
         // public variables
+        this.id = ++numberOfCreatedVehicles;
+        this.isTruck = vehicleParameters.isTruck;
         this.length = vehicleParameters.length;
         this.width = vehicleParameters.width;
         this.position = vehicleParameters.position;
         this.speed = vehicleParameters.speed;
         this.acc = vehicleParameters.acc;
+        
+        this.carFollowingModelParameters = vehicleParameters.isTruck ? movsim.carfollowing.idmParameters.getDefaultTruck() : movsim.carfollowing.idmParameters.getDefaultCar();
+        this.vLimit = this.carFollowingModelParameters.v0; // if effective speed limits, vLimit<v0
+        this.vMax = this.carFollowingModelParameters.v0; // if vehicle restricts speed, vMax<vLimit, v0
+
+        // TODO create MOBIL lane-changing model       
+       
     }
 
     // Factory

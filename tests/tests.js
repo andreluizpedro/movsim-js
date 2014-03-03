@@ -17,7 +17,7 @@ test("namespace function", function () {
 });
 
 
-module('idm car following model and parameters');
+module('car following models and parameters');
 test('IDM parameters car default', function () {
     var carDefaultIdmParameters = movsim.carfollowing.idmParameters.getDefaultCar();
 
@@ -29,6 +29,7 @@ test('IDM parameters car default', function () {
     deepEqual(carDefaultIdmParameters.s0, 2, 's0');
     deepEqual(carDefaultIdmParameters.s1, 0, 's1');
 });
+
 test('IDM parameters truck default', function () {
     var truckDefaultIdmParameters = movsim.carfollowing.idmParameters.getDefaultTruck();
 
@@ -66,13 +67,50 @@ test('IDM simple acceleration function', function () {
     // todo further situations
 });
 
+test('models simple acceleration function', function () {
+    var maxDifference = 0.0001;
+    var modelParameters = movsim.carfollowing.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);
+    ok(modelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
+    var v0eff=modelParameters.v0;
+    var maxDifference = 0.0001;
+    
+    QUnit.close(movsim.carfollowing.models.calculateAccelerationSimple(100000, 0, modelParameters.v0, v0eff, modelParameters), modelParameters.a, maxDifference);
+    QUnit.close(movsim.carfollowing.models.calculateAccelerationSimple(100000, v0eff, modelParameters.v0, v0eff, modelParameters), 0,  maxDifference);
+	QUnit.close(movsim.carfollowing.models.calculateAccelerationSimple(100, v0eff, 0.5*v0eff, v0eff, modelParameters), -1.5962, maxDifference);
+    QUnit.close(movsim.carfollowing.models.calculateAccelerationSimple(10, v0eff, 0.5*v0eff, v0eff, modelParameters), -movsim.carfollowing.models.getMaxDeceleration(), maxDifference);
+});
+
+test('models vehicle acceleration function', function () {
+    var maxDifference = 0.0001;
+    var followingVehicle = movsim.simulation.vehicle.create();
+    var leadingVehicle = movsim.simulation.vehicle.create();
+    ok(followingVehicle.carFollowingModelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
+    
+    leadingVehicle.position = 1000000;
+    followingVehicle.speed = 0
+	QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), followingVehicle.carFollowingModelParameters.a, maxDifference);
+    
+    followingVehicle.speed = followingVehicle.carFollowingModelParameters.v0;
+    leadingVehicle.speed = followingVehicle.carFollowingModelParameters.v0;
+    QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), 0,  maxDifference);
+    
+    leadingVehicle.position = followingVehicle.position + 100;
+    leadingVehicle.speed = 0.5*followingVehicle.carFollowingModelParameters.v0;
+    QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), -1.5962, maxDifference);
+    
+    leadingVehicle.position = followingVehicle.position + 10;
+    QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), -movsim.carfollowing.models.getMaxDeceleration(), maxDifference);
+});
+
+
 module('vehicle');
 test('vehicle parameter', function () {
     var vehicleParameters = movsim.simulation.vehicle.getDefaultParameters();
     var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
     var vehicle2 = movsim.simulation.vehicle.create();
 
-    ok(vehicle instanceof movsim.simulation.vehicle.Vehicle, "type check");
+    ok(vehicle instanceof movsim.simulation.vehicle.Vehicle);
+    ok(vehicle2 instanceof movsim.simulation.vehicle.Vehicle);
 //    deepEqual(vehicle, vehicle2, 'vehicle.create() === vehicle.create(vehicle.getDefaultParameters())');
     ok(vehicle.id !== vehicle2.id, 'two veh with different ids');
     deepEqual(vehicle.position, vehicleParameters.position, 'position');
@@ -80,8 +118,8 @@ test('vehicle parameter', function () {
     deepEqual(vehicle.acc, vehicleParameters.acc, 'acc');
     deepEqual(vehicle.length, vehicleParameters.length, 'length');
     deepEqual(vehicle.width, vehicleParameters.width, 'width');
-
     
+    ok(vehicle.carFollowingModelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
 });
 
 
