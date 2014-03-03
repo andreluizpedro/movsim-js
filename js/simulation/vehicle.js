@@ -45,7 +45,7 @@ movsim.namespace('movsim.simulation.vehicle');
     // public functions
     var p = Vehicle.prototype;
     p.updateAcceleration = function (leader) {
-        this.acc = movsim.carfollowing.model.calculateAcceleration(this, leader);
+        this.acc = movsim.carfollowing.models.calculateAcceleration(this, leader);
     };
 
     p.updateSpeedAndPosition = function (dt) {
