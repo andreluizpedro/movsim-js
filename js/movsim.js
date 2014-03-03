@@ -25,6 +25,7 @@ movsim.namespace = function (name) {
     var simulationTime = 0;
     var iterationCount = 0;
     var time;
+    var timeWarp = 2;
     var roadNetwork;
 
     // public methods
@@ -77,10 +78,11 @@ movsim.namespace = function (name) {
 
             var now = new Date().getTime();
             dt = (now - (time || now)) / 1000;
+            dt *= timeWarp;
             time = now;
 
             // update state
-            simulationTime = simulationTime + dt;
+            simulationTime += dt;
             iterationCount++;
             simulator.timeStep(dt, simulationTime, iterationCount);
 
