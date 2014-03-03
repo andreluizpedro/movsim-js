@@ -20,7 +20,7 @@ movsim.namespace('movsim.carfollowing.idm');
     
     ns.getMaxDeceleration = function () {
         return maxDeceleration;
-    }
+    };
 
     function calcAcc(s, v, vl, v0eff) {
         var accFree = parameters.a * (1 - Math.pow(v / v0eff, parameters.delta));

@@ -7,7 +7,7 @@ movsim.namespace('movsim.carfollowing.models');
 
     ns.getMaxDeceleration = function () {
         return maxDeceleration;
-    }
+    };
     
     function idmCalcAcc(s, v, vl, v0eff, parameters) {
         var accFree = parameters.a * (1 - Math.pow(v / v0eff, parameters.delta));
@@ -35,7 +35,7 @@ movsim.namespace('movsim.carfollowing.models');
         } else{
             throw Error("cannot map parameters to acceleration function"+parameters.toString());
         }
-    }
+    };
     
     return ns;
 
