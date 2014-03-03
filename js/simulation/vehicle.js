@@ -24,6 +24,8 @@ movsim.namespace('movsim.simulation.vehicle');
        
     }
 
+    ns.Vehicle = Vehicle;
+
     // Factory
     ns.create = function (vehicleParameters) {
         vehicleParameters = vehicleParameters || this.getDefaultParameters();
