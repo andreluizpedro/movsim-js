@@ -1,4 +1,4 @@
-movsim.namespace('movsim.carFollowingModel.idm');
+movsim.namespace('movsim.carfollowing.idm');
 
 (function (ns) {
     "use strict";
@@ -8,7 +8,7 @@ movsim.namespace('movsim.carFollowingModel.idm');
     var maxDeceleration = 20;
 
     ns.setParameters = function (idmParameters) {
-        if (!(idmParameters instanceof movsim.carFollowingModel.idmParameters.IdmParameters)) {
+        if (!(idmParameters instanceof movsim.carfollowing.idmParameters.IdmParameters)) {
             throw new Error('parameters not instanceof idmParameters');
         }
         parameters = idmParameters;
@@ -49,4 +49,4 @@ movsim.namespace('movsim.carFollowingModel.idm');
 
     return ns;
 
-})(movsim.carFollowingModel.idm);
+})(movsim.carfollowing.idm);

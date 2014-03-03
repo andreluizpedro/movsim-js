@@ -1,4 +1,4 @@
-movsim.namespace('movsim.carFollowingModel.idmParameters');
+movsim.namespace('movsim.carfollowing.idmParameters');
 
 (function (ns) {
     "use strict";
@@ -16,6 +16,7 @@ movsim.namespace('movsim.carFollowingModel.idmParameters');
 
     var defaultTruck = new IdmParameters(0.8 * v0Init, 0.8 * aInit, bInit, 1.2 * tInit, s0Init, s1Init, deltaInit);
 
+    // @constructor
     function IdmParameters(v0, a, b, T, s0, s1, delta) {
         if (arguments.length !== 7) {
             throw new Error('missing parameters by creating intelligent driver model');
@@ -45,4 +46,4 @@ movsim.namespace('movsim.carFollowingModel.idmParameters');
 
     return ns;
 
-})(movsim.carFollowingModel.idmParameters);
+})(movsim.carfollowing.idmParameters);

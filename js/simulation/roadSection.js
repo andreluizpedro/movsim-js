@@ -55,7 +55,7 @@ movsim.namespace('movsim.simulation.roadSection');
             var vehicleParameters = movsim.simulation.vehicle.getDefaultParameters();
             vehicleParameters.isTruck = Math.random() < truckFraction;
             // initialize all vehicles with same speed determined by slower trucks
-            vehicleParameters.speed = 0.8 * movsim.carFollowingModel.idmParameters.getDefaultTruck().v0;
+            vehicleParameters.speed = 0.8 * movsim.carfollowing.idmParameters.getDefaultTruck().v0;
             vehicleParameters.position = i * 100; // TODO init correctly
             var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
             var lane = i % this.roadLanes.length;

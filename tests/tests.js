@@ -19,9 +19,9 @@ test("namespace function", function () {
 
 module('idm car following model and parameters');
 test('IDM parameters car default', function () {
-    var carDefaultIdmParameters = movsim.carFollowingModel.idmParameters.getDefaultCar();
+    var carDefaultIdmParameters = movsim.carfollowing.idmParameters.getDefaultCar();
 
-    ok(carDefaultIdmParameters instanceof movsim.carFollowingModel.idmParameters.IdmParameters);
+    ok(carDefaultIdmParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
     deepEqual(carDefaultIdmParameters.v0, 20, 'v0');
     deepEqual(carDefaultIdmParameters.a, 1.2, 'a');
     deepEqual(carDefaultIdmParameters.b, 1.2, 'b');
@@ -30,9 +30,9 @@ test('IDM parameters car default', function () {
     deepEqual(carDefaultIdmParameters.s1, 0, 's1');
 });
 test('IDM parameters truck default', function () {
-    var truckDefaultIdmParameters = movsim.carFollowingModel.idmParameters.getDefaultTruck();
+    var truckDefaultIdmParameters = movsim.carfollowing.idmParameters.getDefaultTruck();
 
-    ok(truckDefaultIdmParameters instanceof movsim.carFollowingModel.idmParameters.IdmParameters);
+    ok(truckDefaultIdmParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
     deepEqual(truckDefaultIdmParameters.v0, 16, 'v0');
     deepEqual(truckDefaultIdmParameters.a, 0.8 * 1.2, 'a');
     deepEqual(truckDefaultIdmParameters.b, 1.2, 'b');
@@ -42,15 +42,15 @@ test('IDM parameters truck default', function () {
 });
 
 test('IDM simple acceleration function', function () {
-    var modelParameters = movsim.carFollowingModel.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);
-	var idmModel = movsim.carFollowingModel.idm;
+    var modelParameters = movsim.carfollowing.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);
+	var idmModel = movsim.carfollowing.idm;
 	idmModel.setParameters(modelParameters);
     
-    //var idmTruck = movsim.carFollowingModel.idm;
-    //var idmTruckParam = movsim.carFollowingModel.idmParameters.getDefaultTruck();
+    //var idmTruck = movsim.carfollowing.idm;
+    //var idmTruckParam = movsim.carfollowing.idmParameters.getDefaultTruck();
     //idmTruck.setParameters(idmTruckParam);
 
-    ok(modelParameters instanceof movsim.carFollowingModel.idmParameters.IdmParameters);
+    ok(modelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
     
     deepEqual(idmModel.getParameters(), modelParameters, 'setter 1');
     //deepEqual(idmTruck.getParameters(), idmTruckParam, 'setter 2' );
@@ -72,6 +72,7 @@ test('vehicle parameter', function () {
     var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
     var vehicle2 = movsim.simulation.vehicle.create();
 
+    ok(vehicle instanceof movsim.simulation.vehicle.Vehicle, "type check");
 //    deepEqual(vehicle, vehicle2, 'vehicle.create() === vehicle.create(vehicle.getDefaultParameters())');
     ok(vehicle.id !== vehicle2.id, 'two veh with different ids');
     deepEqual(vehicle.position, vehicleParameters.position, 'position');

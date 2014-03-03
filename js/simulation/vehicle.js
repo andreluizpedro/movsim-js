@@ -5,17 +5,17 @@ movsim.namespace('movsim.simulation.vehicle');
 
     var numberOfCreatedVehicles = 0;
 
-    // Constructor
+    // @constructor
     function Vehicle(vehicleParameters) {
         this.id = ++numberOfCreatedVehicles;
-        this.isTruck = vehicleParameters.isTruck;
-        this.carFollowingModel = movsim.carFollowingModel.idm;
-        var modelParameters = vehicleParameters.isTruck ? movsim.carFollowingModel.idmParameters.getDefaultTruck() : movsim.carFollowingModel.idmParameters.getDefaultCar();
-        this.carFollowingModel.setParameters(modelParameters);
 
+        this.isTruck = vehicleParameters.isTruck;
+        
+        this.carFollowingModelParameters = vehicleParameters.isTruck ? movsim.carfollowing.idmParameters.getDefaultTruck() : movsim.carfollowing.idmParameters.getDefaultCar();
+        
         // TODO create MOBIL lane-changing model
-        this.vLimit = modelParameters.v0; // if effective speed limits, vLimit<v0
-        this.vMax = modelParameters.v0; // if vehicle restricts speed, vMax<vLimit, v0
+        this.vLimit = this.carFollowingModelParameters.v0; // if effective speed limits, vLimit<v0
+        this.vMax = this.carFollowingModelParameters.v0; // if vehicle restricts speed, vMax<vLimit, v0
 
         // public variables
         this.length = vehicleParameters.length;
@@ -32,7 +32,7 @@ movsim.namespace('movsim.simulation.vehicle');
     };
 
     ns.getDefaultParameters = function (isTruck) {
-        isTruck = isTruck || false;
+        this.isTruck = isTruck || false;
         var vehicleParameters = {};
         vehicleParameters.isTruck = isTruck;
         vehicleParameters.length = (isTruck) ? 15 : 7;
@@ -46,7 +46,7 @@ movsim.namespace('movsim.simulation.vehicle');
     // public functions
     var p = Vehicle.prototype;
     p.updateAcceleration = function (leader) {
-        this.acc = this.carFollowingModel.calculateAcceleration(this, leader);
+        this.acc = movsim.carfollowing.model.calculateAcceleration(this, leader);
     };
 
     p.updateSpeedAndPosition = function (dt) {
