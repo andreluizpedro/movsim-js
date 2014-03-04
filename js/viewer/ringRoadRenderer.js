@@ -27,8 +27,8 @@ movsim.namespace('movsim.renderer');
         var center_y = 0.48 * height * scaleFactorImg;
 
         var scale = 2;
-        var laneWidth = 10;
-        var nLanes = 1;
+        var laneWidth = 20;
+        var nLanes = 2;
 
         self.drawBackground = function () {
 //            ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);

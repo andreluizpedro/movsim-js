@@ -67,6 +67,10 @@ movsim.namespace = function (name) {
         iterationCount = 0;
     };
 
+    ns.setTimeWarp = function (warpFactor) {
+        timeWarp = warpFactor;
+    };
+
 //    var fps = 60;
 //    var interval = 1000 / fps;
 

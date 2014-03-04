@@ -3,17 +3,22 @@ movsim.namespace('movsim.gui');
 (function (ns) {
     "use strict";
 
-    var $mainControl = $('#maincontrol');
+    var $mainControl;
+    var $timeWarp;
 
     ns.init = function () {
+
         $('.projectlabel').text('scenario: ' + 'ring road');
-//        $mainControl.text('Stop');
+
+        $mainControl = $('#maincontrol');
+        $timeWarp = $('#time-warp').slider();
 
         addListeners();
 
     };
 
     function addListeners() {
+
         $mainControl.on('click', function () {
             if ($mainControl.text() === 'Start') {
                 $mainControl.text('Stop');
@@ -22,6 +27,11 @@ movsim.namespace('movsim.gui');
                 $mainControl.text('Start');
                 movsim.stop();
             }
+        });
+
+        $timeWarp.on('slide', function(ev){
+            var value = ev.value;
+            movsim.setTimeWarp(value);
         });
     }
 
