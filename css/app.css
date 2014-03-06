@@ -83,3 +83,14 @@ canvas {
 #game-over button {
     font-size: 1.5em;
 }
+
+#time-warp-c .slider-selection {
+    /*background: #1a6981;*/
+}
+#time-warp-c .slider-handle {
+    /*background: #c6bec6;*/
+}
+
+#time-warp-c .slider-track {
+    background: lightslategray;
+}

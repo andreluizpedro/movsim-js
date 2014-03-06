@@ -109,7 +109,7 @@ movsim.namespace = function (name) {
             console.log('simulation paused. simulationTime: ', simulationTime, '  iterationCount: ', iterationCount);
             roadNetwork.roadSections[0].roadLanes[0].vehicles.forEach(function (vehicle) {
 //                console.log('vehicle: ', vehicle);
-                console.log('vehicle: ', vehicle.id , '  pos: ' ,vehicle.position.toFixed(2), '  speed: ', vehicle.speed.toFixed(2), '  acc: ', vehicle.acc.toFixed(4));
+                console.log('vehicle: ', vehicle.id , '  pos: ' ,vehicle.position.toFixed(2), '  speed: ', vehicle.speed.toFixed(2), '  acc: ', vehicle.acc.toFixed(4), '   a: ', vehicle.carFollowingModelParameters.a);
             });
         }
 
