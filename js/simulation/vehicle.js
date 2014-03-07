@@ -5,8 +5,14 @@ movsim.namespace('movsim.simulation.vehicle');
 
     var numberOfCreatedVehicles = 0;
 
+    // static reference to acceleration function for all vehicles
+    var calculateAcceleration;
+
     // @constructor
     function Vehicle(vehicleParameters) {
+        if (!calculateAcceleration) {
+            calculateAcceleration = movsim.carfollowing.models.calculateAcceleration;
+        }
         // public variables
         this.id = ++numberOfCreatedVehicles;
         this.isTruck = vehicleParameters.isTruck;
@@ -47,7 +53,7 @@ movsim.namespace('movsim.simulation.vehicle');
     // public functions
     var p = Vehicle.prototype;
     p.updateAcceleration = function (leader) {
-        this.acc = movsim.carfollowing.models.calculateAcceleration(this, leader);
+        this.acc = calculateAcceleration(this, leader);
     };
 
     p.updateSpeedAndPosition = function (dt) {
