@@ -74,14 +74,28 @@
 
         <h4 class="projectlabel">Label</h4>
 
-        <div id="instructions">
-            <button id="maincontrol" class="btn btn-default">Stop</button>
-            <input type="text" id="time-warp" class="span2" value="" data-slider-id="time-warp-c" data-slider-min="1" data-slider-max="10" data-slider-step="0.1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
-            <input type="text" id="acc" class="span2" value="" data-slider-id="acc-c" data-slider-min="0" data-slider-max="10" data-slider-step="0.1" data-slider-value="1.2" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
-            <input type="text" id="v0" class="span2" value="" data-slider-id="v0-c" data-slider-min="0" data-slider-max="50" data-slider-step="0.5" data-slider-value="20" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
-
-        </div>
     </div>
+
+</div>
+
+        <div id="instructions" class="well">
+            <button id="maincontrol" class="btn btn-default">Stop</button>
+            <p>
+                <b>time warp</b>
+                <input type="text" id="time-warp" class="span2" value="" data-slider-id="time-warp-c" data-slider-min="1" data-slider-max="10" data-slider-step="0.1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                <b>times</b>
+            </p>
+            <p>
+                <b>max acceleration</b>
+                <input type="text" id="acc" class="span2" value="" data-slider-id="acc-c" data-slider-min="0" data-slider-max="10" data-slider-step="0.1" data-slider-value="1.2" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                <b>m/s<sup>2</sup></b>
+            </p>
+            <p>
+                <b>desired speed</b>
+                <input type="text" id="v0" class="span2" value="" data-slider-id="v0-c" data-slider-min="0" data-slider-max="50" data-slider-step="0.5" data-slider-value="20" data-slider-orientation="horizontal" data-slider-selection="after" data-slider-tooltip="hide">
+                <b>m/s</b>
+            </p>
+
 </div>
 
 <div class="container">

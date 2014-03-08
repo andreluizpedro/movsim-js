@@ -36,9 +36,11 @@ canvas {
 }
 
 #instructions {
-    float: left;
-    font-family: sans-serif;
+    position: absolute;
+    position: fixed;
+    right: 1em;
     color: #757575;
+    opacity: 0.8;
 }
 
 #score {
@@ -84,13 +86,18 @@ canvas {
     font-size: 1.5em;
 }
 
-#time-warp-c .slider-selection {
-    /*background: #1a6981;*/
-}
-#time-warp-c .slider-handle {
-    /*background: #c6bec6;*/
+#instructions .slider-track {
+    background: #778877;
 }
 
-#time-warp-c .slider-track {
-    background: lightslategray;
+/* bootstrap theme override TODO extract */
+
+.well {
+    background-image: -webkit-linear-gradient(top, #c8c8c8 0%, #d5fdd5 100%);
+    background-image: linear-gradient(to bottom, #c8c8c8 0%, #d5d5d5 100%);
+    background-repeat: repeat-x;
+    border-color: #dcdcdc;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe8e8e8', endColorstr='#fff5f5f5', GradientType=0);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
 }
