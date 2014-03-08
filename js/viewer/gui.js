@@ -25,6 +25,9 @@ movsim.namespace('movsim.gui');
 
         var defaultCar = movsim.carfollowing.idmParameters.getDefaultCar();
         var defaultTruck = movsim.carfollowing.idmParameters.getDefaultTruck();
+        var $timeWarpValue = $('#time-warp-value');
+        var $accValue = $('#acc-value');
+        var $v0value= $('#v0-value');
 
         $mainControl.on('click', function () {
             if ($mainControl.text() === 'Start') {
@@ -39,20 +42,21 @@ movsim.namespace('movsim.gui');
         $timeWarp.on('slide', function (ev) {
             var value = ev.value;
             movsim.setTimeWarp(value);
+            $timeWarpValue.text(value.toFixed(1) + ' times');
         });
 
         $acc.on('slide', function (ev) {
             var value = ev.value;
             defaultCar.a = value;
             defaultTruck.a = 0.8 * value;
-            console.log('  on slide --  a: ', defaultCar);
+            $accValue.html(value.toFixed(1) + ' m/s<sup>2</sup>');
         });
 
         $v0.on('slide', function (ev) {
             var value = ev.value;
             defaultCar.v0 = value;
             defaultTruck.v0 = 0.8 * value;
-            console.log('  on slide --  v0: ', defaultCar.v0);
+            $v0value.text(value.toFixed(1) + ' m/s');
         });
     }
 
