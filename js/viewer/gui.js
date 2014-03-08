@@ -4,18 +4,24 @@ movsim.namespace('movsim.gui');
     "use strict";
 
     var $mainControl;
-    var $timeWarp;
-    var $acc;
-    var $v0;
+    var $timeWarpControl;
+    var $aControl;
+    var $v0Control;
+    var $timeGapControl;
+    var $s0Control;
+    var $bControl;
 
     ns.init = function () {
 
         $('.projectlabel').text('scenario: ' + 'ring road');
 
         $mainControl = $('#maincontrol');
-        $timeWarp = $('#time-warp').slider();
-        $acc = $('#acc').slider();
-        $v0 = $('#v0').slider();
+        $timeWarpControl = $('#time-warp').slider();
+        $aControl = $('#a').slider();
+        $v0Control = $('#v0').slider();
+        $timeGapControl = $('#time-gap').slider();
+        $s0Control = $('#s0').slider();
+        $bControl = $('#b').slider();
 
         addListeners();
 
@@ -25,9 +31,13 @@ movsim.namespace('movsim.gui');
 
         var defaultCar = movsim.carfollowing.idmParameters.getDefaultCar();
         var defaultTruck = movsim.carfollowing.idmParameters.getDefaultTruck();
+
         var $timeWarpValue = $('#time-warp-value');
-        var $accValue = $('#acc-value');
-        var $v0value= $('#v0-value');
+        var $aValue = $('#a-value');
+        var $v0Value= $('#v0-value');
+        var $timeGapValue = $('#time-gap-value');
+        var $s0Value= $('#s0-value');
+        var $bValue= $('#b-value');
 
         $mainControl.on('click', function () {
             if ($mainControl.text() === 'Start') {
@@ -39,24 +49,45 @@ movsim.namespace('movsim.gui');
             }
         });
 
-        $timeWarp.on('slide', function (ev) {
+        $timeWarpControl.on('slide', function (ev) {
             var value = ev.value;
             movsim.setTimeWarp(value);
             $timeWarpValue.text(value.toFixed(1) + ' times');
         });
 
-        $acc.on('slide', function (ev) {
+        $aControl.on('slide', function (ev) {
             var value = ev.value;
             defaultCar.a = value;
             defaultTruck.a = 0.8 * value;
-            $accValue.html(value.toFixed(1) + ' m/s<sup>2</sup>');
+            $aValue.html(value.toFixed(1) + ' m/s<sup>2</sup>');
         });
 
-        $v0.on('slide', function (ev) {
+        $v0Control.on('slide', function (ev) {
             var value = ev.value;
             defaultCar.v0 = value;
             defaultTruck.v0 = 0.8 * value;
-            $v0value.text(value.toFixed(1) + ' m/s');
+            $v0Value.text(value.toFixed(1) + ' m/s');
+        });
+
+        $timeGapControl.on('slide', function (ev) {
+            var value = ev.value;
+            defaultCar.t = value;
+            defaultTruck.t = 1.2 * value;
+            $timeGapValue.text(value.toFixed(1) + ' s');
+        });
+
+        $s0Control.on('slide', function (ev) {
+            var value = ev.value;
+            defaultCar.s0 = value;
+            defaultTruck.s0 = value;
+            $s0Value.text(value.toFixed(1) + ' m');
+        });
+
+        $bControl.on('slide', function (ev) {
+            var value = ev.value;
+            defaultCar.b = value;
+            defaultTruck.b = value;
+            $bValue.html(value.toFixed(1) + ' m/s<sup>2</sup>');
         });
     }
 
