@@ -18,8 +18,6 @@ movsim.namespace('movsim.renderer');
         roadNetwork = network;
         canvas = document.getElementById("animation-canvas");
         ctx = canvas.getContext("2d");
-
-        scenarioRenderer = new ns.RingRoadRenderer();
     };
 
     ns.drawBackground = function () {
@@ -36,6 +34,23 @@ movsim.namespace('movsim.renderer');
 
     ns.drawVehicles = function () {
         scenarioRenderer.drawVehicles(roadNetwork);
+    };
+
+    ns.setRendererForScenario = function (scenario) {
+        switch (scenario) {
+            case 'startStop' :
+                scenarioRenderer = new ns.StartStopRenderer();
+                break;
+            case 'ringRoad' :
+                scenarioRenderer = new ns.RingRoadRenderer();
+                break;
+            default :
+                throw new Error('scenario name has no match');
+        }
+    };
+
+    ns.setRenderer = function (renderer) {
+        scenarioRenderer = renderer;
     };
 
     /**

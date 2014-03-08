@@ -40,10 +40,12 @@ movsim.namespace = function (name) {
         // init gui
         gui = movsim.gui;
         gui.init();
+        gui.reset('ring road');
 
         // init renderer (drawing utilities)
         renderer = movsim.renderer;
         renderer.init(roadNetwork);
+        renderer.setRenderer(new renderer.RingRoadRenderer());
         renderer.drawRoads();
         renderer.drawBackground();
 
@@ -65,6 +67,28 @@ movsim.namespace = function (name) {
         dt = 1;
         simulationTime = 0;
         iterationCount = 0;
+    };
+
+    ns.setScenario = function (scenario) {
+        switch (scenario) {
+            case 'startStop' :
+                roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
+                movsim.renderer.setRenderer(new renderer.StartStopRenderer());
+                break;
+            case 'ringRoad' :
+                roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
+                movsim.renderer.setRenderer(new renderer.RingRoadRenderer());
+                break;
+            default :
+                throw new Error('scenario name has no match');
+        }
+
+        simulator.init(roadNetwork);
+        renderer.init(roadNetwork);
+        gui.reset(scenario);
+        ns.reset();
+        ns.start();
+
     };
 
     ns.setTimeWarp = function (warpFactor) {

@@ -4,6 +4,7 @@ movsim.namespace('movsim.gui');
     "use strict";
 
     var $mainControl;
+    var $projectLabel
     var $timeWarpControl;
     var $aControl;
     var $v0Control;
@@ -13,9 +14,9 @@ movsim.namespace('movsim.gui');
 
     ns.init = function () {
 
-        $('.projectlabel').text('scenario: ' + 'ring road');
-
+        $projectLabel = $('.projectlabel');
         $mainControl = $('#maincontrol');
+
         $timeWarpControl = $('#time-warp').slider();
         $aControl = $('#a').slider();
         $v0Control = $('#v0').slider();
@@ -27,8 +28,29 @@ movsim.namespace('movsim.gui');
 
     };
 
+    ns.reset = function (name) {
+        $mainControl.text('Stop');
+        $projectLabel.text('scenario: ' + name);
+    };
+
     function addListeners() {
 
+        // menu dropdown on hover
+        $('.navbar .dropdown').hover(function() {
+            $(this).find('.dropdown-menu').first().stop(true, true).delay(200).slideDown();
+        }, function() {
+            $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
+        });
+
+        // scenario change
+        $('#scenario-ringroad').on('click', function () {
+            movsim.setScenario('ringRoad');
+        });
+        $('#scenario-startstop').on('click', function () {
+            movsim.setScenario('startStop');
+        });
+
+        // model parameters controls
         var defaultCar = movsim.carfollowing.idmParameters.getDefaultCar();
         var defaultTruck = movsim.carfollowing.idmParameters.getDefaultTruck();
 
