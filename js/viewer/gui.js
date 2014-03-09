@@ -3,8 +3,9 @@ movsim.namespace('movsim.gui');
 (function (ns) {
     "use strict";
 
-    var $mainControl;
-    var $projectLabel
+    var $startControl;
+    var $restartControl;
+    var $projectLabel;
     var $timeWarpControl;
     var $aControl;
     var $v0Control;
@@ -15,7 +16,8 @@ movsim.namespace('movsim.gui');
     ns.init = function () {
 
         $projectLabel = $('.projectlabel');
-        $mainControl = $('#maincontrol');
+        $startControl = $('#startcontrol');
+        $restartControl = $('#restartcontrol');
 
         $timeWarpControl = $('#time-warp').slider();
         $aControl = $('#a').slider();
@@ -29,7 +31,7 @@ movsim.namespace('movsim.gui');
     };
 
     ns.reset = function (name) {
-        $mainControl.text('Stop');
+        $startControl.text('Stop');
         $projectLabel.text('scenario: ' + name);
     };
 
@@ -41,6 +43,9 @@ movsim.namespace('movsim.gui');
         }, function() {
             $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
         });
+        $('.navbar .dropdown > a').click(function(){
+            return false;
+        });
 
         // scenario change
         $('#scenario-ringroad').on('click', function () {
@@ -48,6 +53,21 @@ movsim.namespace('movsim.gui');
         });
         $('#scenario-startstop').on('click', function () {
             movsim.setScenario('startStop');
+        });
+
+        // main simulation controls
+        $startControl.on('click', function () {
+            if ($startControl.text() === 'Start') {
+                $startControl.text('Stop');
+                movsim.start();
+            } else {
+                $startControl.text('Start');
+                movsim.stop();
+            }
+        });
+
+        $restartControl.on('click', function () {
+            movsim.setScenario();
         });
 
         // model parameters controls
@@ -60,16 +80,6 @@ movsim.namespace('movsim.gui');
         var $timeGapValue = $('#time-gap-value');
         var $s0Value= $('#s0-value');
         var $bValue= $('#b-value');
-
-        $mainControl.on('click', function () {
-            if ($mainControl.text() === 'Start') {
-                $mainControl.text('Stop');
-                movsim.start();
-            } else {
-                $mainControl.text('Start');
-                movsim.stop();
-            }
-        });
 
         $timeWarpControl.on('slide', function (ev) {
             var value = ev.value;

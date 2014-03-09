@@ -27,6 +27,7 @@ movsim.namespace = function (name) {
     var time;
     var timeWarp = 2;
     var roadNetwork;
+    var scenarioName = 'ringRoad';
 
     // public methods
     ns.init = function () {
@@ -70,6 +71,8 @@ movsim.namespace = function (name) {
     };
 
     ns.setScenario = function (scenario) {
+        scenario = scenario || scenarioName;
+        scenarioName = scenario;
         switch (scenario) {
             case 'startStop' :
                 roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
