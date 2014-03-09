@@ -43,9 +43,6 @@ movsim.namespace('movsim.gui');
         }, function() {
             $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
         });
-        $('.navbar .dropdown > a').click(function(){
-            return false;
-        });
 
         // scenario change
         $('#scenario-ringroad').on('click', function () {
