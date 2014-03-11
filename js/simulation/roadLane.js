@@ -24,25 +24,19 @@ movsim.namespace('movsim.simulation.roadLane');
             // TODO special case ringroad
             var leader = this.vehicles[i+1];
             vehicle.updateAcceleration(leader);
-//            if (len > 1) {
-//                var leader = (i === len - 1) ? this.vehicles[0] : this.vehicles[i + 1];
-//                vehicle.updateAcceleration(leader);
-//            }
-//            else {
-//                vehicle.updateAcceleration();
-//            }
         }
     };
 
     p.updateSpeedAndPosition = function (dt) {
         this.vehicles.forEach(function (vehicle) {
-            // TODO better naming for ide
-            vehicle.updateSpeedAndPosition(dt)
+            vehicle.updateSpeedAndPosition(dt);
         });
     };
 
     p._sortVehicles = function () {
-        // TODO sort according to Vehicle.position
+        this.vehicles.sort(function (a, b) {
+            return a.position - b.position;
+        });
     };
 
     return ns;
