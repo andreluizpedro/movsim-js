@@ -42,31 +42,6 @@ test('IDM parameters truck default', function () {
     deepEqual(truckDefaultIdmParameters.s1, 0, 's1');
 });
 
-test('IDM simple acceleration function', function () {
-    var modelParameters = movsim.carfollowing.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);
-	var idmModel = movsim.carfollowing.idm;
-	idmModel.setParameters(modelParameters);
-    
-    //var idmTruck = movsim.carfollowing.idm;
-    //var idmTruckParam = movsim.carfollowing.idmParameters.getDefaultTruck();
-    //idmTruck.setParameters(idmTruckParam);
-
-    ok(modelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
-    
-    deepEqual(idmModel.getParameters(), modelParameters, 'setter 1');
-    //deepEqual(idmTruck.getParameters(), idmTruckParam, 'setter 2' );
-    
-    //s, v, vl, v0eff
-    // todo 
-    var v0eff=modelParameters.v0;
-    var maxDifference = 0.0001;
-    QUnit.close(idmModel.calculateAccelerationSimple(100000, v0eff, modelParameters.v0, v0eff), 0,  maxDifference);
-	QUnit.close(idmModel.calculateAccelerationSimple(100000, 0, modelParameters.v0, v0eff), modelParameters.a, maxDifference);
-	QUnit.close(idmModel.calculateAccelerationSimple(100, v0eff, 0.5*v0eff, v0eff), -1.5962, maxDifference);
-    QUnit.close(idmModel.calculateAccelerationSimple(10, v0eff, 0.5*v0eff, v0eff), -idmModel.getMaxDeceleration(), maxDifference);
-    // todo further situations
-});
-
 test('models simple acceleration function', function () {
     var maxDifference = 0.0001;
     var modelParameters = movsim.carfollowing.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);

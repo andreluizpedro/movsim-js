@@ -3,7 +3,7 @@ movsim.namespace('movsim.simulation.roadNetwork');
 (function (ns) {
     "use strict";
 
-    // Constructor
+    // @constructor
     function RoadNetwork() {
         this.roadSections = [];
     }
@@ -20,10 +20,28 @@ movsim.namespace('movsim.simulation.roadNetwork');
         this.roadSections.push(roadSection);
     };
 
+    // parallel update of all road segments
     p.timeStep = function (dt, simulationTime, iterationCount) {
-        this.roadSections.forEach(function (roadSecton) {
-            roadSecton.timeStep(dt, simulationTime, iterationCount);
+
+        this.roadSections.forEach(function (roadSection) {
+            roadSection.makeLaneChanges(dt, simulationTime, iterationCount);
         });
+        
+        this.roadSections.forEach(function (roadSection) {
+            roadSection.updateVehicleAccelerations(dt, simulationTime, iterationCount);
+        });
+        
+        this.roadSections.forEach(function (roadSection) {
+            roadSection.updateVehiclePositionsAndSpeeds(dt, simulationTime, iterationCount);
+        });
+        
+        // for debugging
+        this.roadSections.forEach(function (roadSection) {
+            roadSection.checkForInconsistencies(dt, simulationTime, iterationCount);
+        });
+        
+        // update sinks (outflow)
+        // update sources (inflow)
     };
 
     return ns;

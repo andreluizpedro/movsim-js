@@ -31,23 +31,24 @@ movsim.namespace('movsim.simulation.roadSection');
     };
 
     var p = RoadSection.prototype;
-    p.timeStep = function (dt, simulationTime, iterationCount) {
-        this.calcAccelerations();
-        // changeLanes(veh);
-        this.updateSpeedAndPositions(dt);
-        // update sinks and sources
+    p.makeLaneChanges = function (dt, simulationTime, iterationCount) {
+        // TODO implement lane changes
     };
 
-    p.calcAccelerations = function () {
+    p.updateVehicleAccelerations = function (dt, simulationTime, iterationCount) {
         this.roadLanes.forEach(function (roadLane) {
             roadLane.calcAccelerations();
         });
     };
-
-    p.updateSpeedAndPositions = function (dt) {
+    
+    p.updateVehiclePositionsAndSpeeds = function (dt, simulationTime, iterationCount) {
         this.roadLanes.forEach(function (roadLane) {
             roadLane.updateSpeedAndPosition(dt);
         });
+    };
+    
+    p.checkForInconsistencies = function (dt, simulationTime, iterationCount) {
+       // TODO implement check for negative vehicle distances 
     };
 
     p._initializeVehicles = function (numberOfVehicles, truckFraction) {
