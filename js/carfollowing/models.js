@@ -17,9 +17,11 @@ movsim.namespace('movsim.carfollowing.models');
     }
 
     ns.calculateAcceleration = function (followingVehicle, leadingVehicle) {
+        // TODO just hack if no leader: set distance to infinity
         var leaderPosition = leadingVehicle ? leadingVehicle.position : 1000000;
         var leaderSpeed = leadingVehicle ? leadingVehicle.speed : 100;
-        var distance = leaderPosition - followingVehicle.position;
+        var leaderLength = leadingVehicle ? leadingVehicle.length : 0;
+        var distance = leaderPosition - leaderLength - followingVehicle.position;
         if (distance < 0) {
             throw new Error('negative distance');
         }

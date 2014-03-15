@@ -78,7 +78,7 @@ test('models vehicle acceleration function', function () {
     
     leadingVehicle.position = followingVehicle.position + 100;
     leadingVehicle.speed = 0.5*followingVehicle.carFollowingModelParameters.v0;
-    QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), -1.5962, maxDifference);
+    QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), -1.84554, maxDifference);
     
     leadingVehicle.position = followingVehicle.position + 10;
     QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), -movsim.carfollowing.models.getMaxDeceleration(), maxDifference);
