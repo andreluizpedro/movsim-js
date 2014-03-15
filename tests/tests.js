@@ -5,13 +5,16 @@
 // deepEqual( actual, expected [, message ] )
 
 module('test');
+
 test("hello test", function () {
-    ok(1 == "1", "Passed!");
+    "use strict";
+    ok("1" === "1", "Passed!");
 });
 
 
 module('movsim utilities');
 test("namespace function", function () {
+    "use strict";
     var ns = movsim.namespace('movsim.simulation.roadnetwork');
     deepEqual(ns, movsim.simulation.roadnetwork);
 });
@@ -19,6 +22,7 @@ test("namespace function", function () {
 
 module('car following models and parameters');
 test('IDM parameters car default', function () {
+    "use strict";
     var carDefaultIdmParameters = movsim.carfollowing.idmParameters.getDefaultCar();
 
     ok(carDefaultIdmParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
@@ -31,6 +35,7 @@ test('IDM parameters car default', function () {
 });
 
 test('IDM parameters truck default', function () {
+    "use strict";
     var truckDefaultIdmParameters = movsim.carfollowing.idmParameters.getDefaultTruck();
 
     ok(truckDefaultIdmParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
@@ -43,6 +48,7 @@ test('IDM parameters truck default', function () {
 });
 
 test('models simple acceleration function', function () {
+    "use strict";
     var maxDifference = 0.0001;
     var modelParameters = movsim.carfollowing.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);
     ok(modelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
@@ -56,13 +62,14 @@ test('models simple acceleration function', function () {
 });
 
 test('models vehicle acceleration function', function () {
+    "use strict";
     var maxDifference = 0.0001;
     var followingVehicle = movsim.simulation.vehicle.create();
     var leadingVehicle = movsim.simulation.vehicle.create();
     ok(followingVehicle.carFollowingModelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
     
     leadingVehicle.position = 1000000;
-    followingVehicle.speed = 0
+    followingVehicle.speed = 0;
 	QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), followingVehicle.carFollowingModelParameters.a, maxDifference);
     
     followingVehicle.speed = followingVehicle.carFollowingModelParameters.v0;
@@ -80,6 +87,7 @@ test('models vehicle acceleration function', function () {
 
 module('vehicle');
 test('vehicle parameter', function () {
+    "use strict";
     var vehicleParameters = movsim.simulation.vehicle.getDefaultParameters();
     var vehicle = movsim.simulation.vehicle.create(vehicleParameters);
     var vehicle2 = movsim.simulation.vehicle.create();
@@ -100,6 +108,7 @@ test('vehicle parameter', function () {
 
 module('road network');
 test('road network', function () {
+    "use strict";
     var roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
     console.log('roadNetwork: ', roadNetwork);
 
