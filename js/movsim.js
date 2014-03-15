@@ -17,15 +17,16 @@ movsim.namespace = function (name) {
     "use strict";
 
     // private vars
+    var dt = 0.2;  
+    var simulationTime = 0;
+    var iterationCount = 0;
+
     var simulator;
     var renderer;
     var gui;
     var running = false;
-    var dt = 1;
-    var simulationTime = 0;
-    var iterationCount = 0;
     var time;
-    var timeWarp = 2;
+    var timeWarp = 4;
     var roadNetwork;
     var scenarioName = 'ringRoad';
 
@@ -65,7 +66,7 @@ movsim.namespace = function (name) {
     };
 
     ns.reset = function () {
-        dt = 1;
+        dt = 0.2;
         simulationTime = 0;
         iterationCount = 0;
     };
@@ -81,6 +82,10 @@ movsim.namespace = function (name) {
             case 'ringRoad' :
                 roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
                 movsim.renderer.setRenderer(new renderer.RingRoadRenderer());
+                // apply initial perturbation by reducing speed
+                var vehicles = roadNetwork.roadSections[0].roadLanes[0].vehicles;
+                var veh = vehicles[Math.floor(vehicles.length/2)];
+                veh.speed = 0.75*veh.speed;
                 break;
             default :
                 throw new Error('scenario name has no match');

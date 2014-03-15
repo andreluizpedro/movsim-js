@@ -40,8 +40,14 @@ movsim.namespace('movsim.simulation.roadNetwork');
             roadSection.checkForInconsistencies(dt, simulationTime, iterationCount);
         });
         
-        // update sinks (outflow)
-        // update sources (inflow)
+        this.roadSections.forEach(function (roadSection) {
+            roadSection.updateOutflow(dt, simulationTime, iterationCount);
+        });
+        
+        this.roadSections.forEach(function (roadSection) {
+            roadSection.updateInflow(dt, simulationTime, iterationCount);
+        });
+
     };
 
     return ns;

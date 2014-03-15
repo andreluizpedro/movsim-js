@@ -8,6 +8,7 @@ movsim.namespace('movsim.simulation.roadNetworkFactory');
 
         // create one roadSection
         var roadSectionParameters = movsim.simulation.roadSection.getDefaultParameters();
+        roadSectionParameters.ringRoad = true;
         roadSectionParameters.roadLength = roadLength;
         roadSectionParameters.numberOfLanes = numberOfLanes;
         var roadSection = movsim.simulation.roadSection.create(roadSectionParameters);

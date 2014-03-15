@@ -53,7 +53,18 @@ movsim.namespace('movsim.simulation.vehicle');
     // public functions
     var p = Vehicle.prototype;
     p.updateAcceleration = function (leader) {
-        this.acc = calculateAcceleration(this, leader);
+        // TODO just hack if no leader: set distance to infinity
+        var leaderPosition = leader ? leader.position : 1000000;
+        var leaderSpeed = leader ? leader.speed : 100;
+        var leaderLength = leader ? leader.length : 0;
+        var distance = leaderPosition - leaderLength - this.position;
+        if (distance < 0) {
+            distance = 40;  // TODO just a hack here 
+            //throw new Error('negative distance');
+        }
+        
+        var effectiveDesiredSpeed = Math.min(this.carFollowingModelParameters.v0, this.vLimit, this.vMax);
+        this.acc = calculateAcceleration(distance, this.speed, leaderSpeed, effectiveDesiredSpeed, this.carFollowingModelParameters);
     };
 
     p.updateSpeedAndPosition = function (dt) {

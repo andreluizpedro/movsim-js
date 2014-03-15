@@ -55,33 +55,10 @@ test('models simple acceleration function', function () {
     var v0eff=modelParameters.v0;
     var maxDifference = 0.0001;
     
-    QUnit.close(movsim.carfollowing.models.calculateAccelerationSimple(100000, 0, modelParameters.v0, v0eff, modelParameters), modelParameters.a, maxDifference);
-    QUnit.close(movsim.carfollowing.models.calculateAccelerationSimple(100000, v0eff, modelParameters.v0, v0eff, modelParameters), 0,  maxDifference);
-	QUnit.close(movsim.carfollowing.models.calculateAccelerationSimple(100, v0eff, 0.5*v0eff, v0eff, modelParameters), -1.5962, maxDifference);
-    QUnit.close(movsim.carfollowing.models.calculateAccelerationSimple(10, v0eff, 0.5*v0eff, v0eff, modelParameters), -movsim.carfollowing.models.getMaxDeceleration(), maxDifference);
-});
-
-test('models vehicle acceleration function', function () {
-    "use strict";
-    var maxDifference = 0.0001;
-    var followingVehicle = movsim.simulation.vehicle.create();
-    var leadingVehicle = movsim.simulation.vehicle.create();
-    ok(followingVehicle.carFollowingModelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
-    
-    leadingVehicle.position = 1000000;
-    followingVehicle.speed = 0;
-	QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), followingVehicle.carFollowingModelParameters.a, maxDifference);
-    
-    followingVehicle.speed = followingVehicle.carFollowingModelParameters.v0;
-    leadingVehicle.speed = followingVehicle.carFollowingModelParameters.v0;
-    QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), 0,  maxDifference);
-    
-    leadingVehicle.position = followingVehicle.position + 100;
-    leadingVehicle.speed = 0.5*followingVehicle.carFollowingModelParameters.v0;
-    QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), -1.84554, maxDifference);
-    
-    leadingVehicle.position = followingVehicle.position + 10;
-    QUnit.close(movsim.carfollowing.models.calculateAcceleration(followingVehicle, leadingVehicle), -movsim.carfollowing.models.getMaxDeceleration(), maxDifference);
+    QUnit.close(movsim.carfollowing.models.calculateAcceleration(100000, 0, modelParameters.v0, v0eff, modelParameters), modelParameters.a, maxDifference);
+    QUnit.close(movsim.carfollowing.models.calculateAcceleration(100000, v0eff, modelParameters.v0, v0eff, modelParameters), 0,  maxDifference);
+	QUnit.close(movsim.carfollowing.models.calculateAcceleration(100, v0eff, 0.5*v0eff, v0eff, modelParameters), -1.5962, maxDifference);
+    QUnit.close(movsim.carfollowing.models.calculateAcceleration(10, v0eff, 0.5*v0eff, v0eff, modelParameters), -movsim.carfollowing.models.getMaxDeceleration(), maxDifference);
 });
 
 
@@ -105,9 +82,38 @@ test('vehicle parameter', function () {
     ok(vehicle.carFollowingModelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
 });
 
+test('vehicle idm acceleration function', function () {
+    "use strict";
+    var maxDifference = 0.0001;
+    var vehicleParameters = movsim.simulation.vehicle.getDefaultParameters();
+    
+    var followingVehicle = movsim.simulation.vehicle.create();
+    var leadingVehicle = movsim.simulation.vehicle.create();
+    ok(followingVehicle.carFollowingModelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
+    
+    leadingVehicle.position = 1000000;
+    followingVehicle.speed = 0;
+    followingVehicle.updateAcceleration(leadingVehicle);
+	QUnit.close(followingVehicle.acc, followingVehicle.carFollowingModelParameters.a, maxDifference);
+    
+    followingVehicle.speed = followingVehicle.carFollowingModelParameters.v0;
+    leadingVehicle.speed = followingVehicle.carFollowingModelParameters.v0;
+    followingVehicle.updateAcceleration(leadingVehicle);
+    QUnit.close(followingVehicle.acc, 0,  maxDifference);
+    
+    leadingVehicle.position = followingVehicle.position + 100;
+    leadingVehicle.speed = 0.5*followingVehicle.carFollowingModelParameters.v0;
+    followingVehicle.updateAcceleration(leadingVehicle);
+    QUnit.close(followingVehicle.acc, -1.84554, maxDifference);
+    
+    leadingVehicle.position = followingVehicle.position + 10;
+    followingVehicle.updateAcceleration(leadingVehicle);
+    QUnit.close(followingVehicle.acc, -movsim.carfollowing.models.getMaxDeceleration(), maxDifference);
+});
+
 
 module('road network');
-test('road network', function () {
+test('road network ring road creation', function () {
     "use strict";
     var roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
     console.log('roadNetwork: ', roadNetwork);
@@ -115,5 +121,6 @@ test('road network', function () {
     ok(roadNetwork instanceof movsim.simulation.roadNetwork.RoadNetwork, 'ring road from factory is a compliant road network');
     ok(roadNetwork.roadSections.length === 1, '1 road section');
     ok(roadNetwork.roadSections[0].roadLanes.length === 1, '1 road lane');
+    ok(roadNetwork.roadSections[0].ringRoad === true, 'is ring road');
     deepEqual(roadNetwork.roadSections[0].roadLanes[0].vehicles.length, 20, 'with 20 vehicles');
 });

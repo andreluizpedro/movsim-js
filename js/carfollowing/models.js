@@ -16,22 +16,7 @@ movsim.namespace('movsim.carfollowing.models');
         return Math.max(-maxDeceleration, accFree + accInt);
     }
 
-    ns.calculateAcceleration = function (followingVehicle, leadingVehicle) {
-        // TODO just hack if no leader: set distance to infinity
-        var leaderPosition = leadingVehicle ? leadingVehicle.position : 1000000;
-        var leaderSpeed = leadingVehicle ? leadingVehicle.speed : 100;
-        var leaderLength = leadingVehicle ? leadingVehicle.length : 0;
-        var distance = leaderPosition - leaderLength - followingVehicle.position;
-        if (distance < 0) {
-            throw new Error('negative distance');
-        }
-        
-        var effectiveDesiredSpeed = Math.min(followingVehicle.carFollowingModelParameters.v0, followingVehicle.vLimit, followingVehicle.vMax);
-        var acc = ns.calculateAccelerationSimple(distance, followingVehicle.speed, leaderSpeed, effectiveDesiredSpeed, followingVehicle.carFollowingModelParameters);
-        return acc;
-    };
-
-    ns.calculateAccelerationSimple = function (s, v, vl, v0eff, parameters) {
+    ns.calculateAcceleration = function (s, v, vl, v0eff, parameters) {
         if (parameters instanceof movsim.carfollowing.idmParameters.IdmParameters) {
             return idmCalcAcc(s, v, vl, v0eff, parameters);
         } else{

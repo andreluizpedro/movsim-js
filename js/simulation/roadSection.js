@@ -6,11 +6,14 @@ movsim.namespace('movsim.simulation.roadSection');
     // Constructor
     function RoadSection(roadSectionParameters) {
         this.roadLanes = [];
-
+        this.ringRoad = roadSectionParameters.ringRoad;
+        this.roadLength = roadSectionParameters.roadLength;
+        
         for (var i = 0; i < roadSectionParameters.numberOfLanes; i++) {
-            var roadLane = movsim.simulation.roadLane.create();
+            var roadLane = movsim.simulation.roadLane.create(this);
             this.roadLanes.push(roadLane);
         }
+        
         var vehiclesInOneLane = roadSectionParameters.roadLength * roadSectionParameters.initDensityPerLane;
         var numberOfVehicles = Math.floor(roadSectionParameters.numberOfLanes * vehiclesInOneLane);
         this._initializeVehicles(numberOfVehicles, roadSectionParameters.initTruckFraction);
@@ -27,6 +30,7 @@ movsim.namespace('movsim.simulation.roadSection');
         roadSectionParameters.numberOfLanes = 1;
         roadSectionParameters.initDensityPerLane = 10 / 1000;
         roadSectionParameters.initTruckFraction = 0.1;
+        roadSectionParameters.ringRoad = false;
         return roadSectionParameters;
     };
 
@@ -46,6 +50,19 @@ movsim.namespace('movsim.simulation.roadSection');
             roadLane.updateSpeedAndPosition(dt);
         });
     };
+    
+    p.updateOutflow = function (dt, simulationTime, iterationCount) {
+        this.roadLanes.forEach(function (roadLane) {
+            roadLane.updateOutflow(dt);
+        });
+    };
+    
+    p.updateInflow = function (dt, simulationTime, iterationCount) {
+        this.roadLanes.forEach(function (roadLane) {
+            roadLane.updateInflow(dt);
+        });
+    };
+    
     
     p.checkForInconsistencies = function (dt, simulationTime, iterationCount) {
        // TODO implement check for negative vehicle distances 
