@@ -68,8 +68,8 @@ movsim.namespace('movsim.simulation.vehicle');
         //    leaderMoveable = Moveable.getMoveableAtInfinity();
         // }
         var leaderPosition = leaderMoveable ? leaderMoveable.position : 1000000;
-        var leaderSpeed = leaderMoveable ? leaderMoveable.getSpeed() : 100;
-        var leaderLength = leaderMoveable ? leaderMoveable.getLength() : 0;
+        var leaderSpeed = leaderMoveable ? leaderMoveable.speed : 100;
+        var leaderLength = leaderMoveable ? leaderMoveable.length : 0;
         var distance = leaderPosition - leaderLength - this.position;
         if (distance < 0) {
             distance = 40;  // TODO just a hack here 
