@@ -63,7 +63,14 @@ movsim.namespace('movsim.simulation.roadSection');
         });
     };
     
-    
+    p.getRearVehicle = function(lane, position) {
+        return this.roadLanes[lane-1].getRearVehicle(position);
+    };
+
+    p.getFrontVehicle = function(lane, position) {
+        return this.roadLanes[lane-1].getFrontVehicle(position);
+    };
+
     p.checkForInconsistencies = function (dt, simulationTime, iterationCount) {
        // TODO implement check for negative vehicle distances 
     };

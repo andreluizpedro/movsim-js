@@ -37,7 +37,7 @@ movsim.namespace('movsim.simulation.vehicle');
         vehicleParameters = vehicleParameters || this.getDefaultParameters();
         return new Vehicle(vehicleParameters);
     };
-
+    
     ns.getDefaultParameters = function (isTruck) {
         this.isTruck = isTruck || false;
         var vehicleParameters = {};
@@ -52,11 +52,24 @@ movsim.namespace('movsim.simulation.vehicle');
 
     // public functions
     var p = Vehicle.prototype;
-    p.updateAcceleration = function (leader) {
-        // TODO just hack if no leader: set distance to infinity
-        var leaderPosition = leader ? leader.position : 1000000;
-        var leaderSpeed = leader ? leader.speed : 100;
-        var leaderLength = leader ? leader.length : 0;
+    
+    p.getRearPosition = function() {
+        return this.position - 0.5*this.length;
+    };
+    
+    p.getFrontPosition = function() {
+        return this.position + 0.5*this.length;
+    };
+    
+    p.updateAcceleration = function (roadLane) {
+        var leaderMoveable = roadLane.getFrontVehicle(this.position);
+        // TODO if no leader get a pre-defined Moveable set to infinity
+        //if(leaderMoveable === null){
+        //    leaderMoveable = Moveable.getMoveableAtInfinity();
+        // }
+        var leaderPosition = leaderMoveable ? leaderMoveable.position : 1000000;
+        var leaderSpeed = leaderMoveable ? leaderMoveable.getSpeed() : 100;
+        var leaderLength = leaderMoveable ? leaderMoveable.getLength() : 0;
         var distance = leaderPosition - leaderLength - this.position;
         if (distance < 0) {
             distance = 40;  // TODO just a hack here 
