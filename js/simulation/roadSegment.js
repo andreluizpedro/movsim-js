@@ -35,29 +35,29 @@ movsim.namespace('movsim.simulation.roadSegment');
     };
 
     var p = RoadSegment.prototype;
-    p.makeLaneChanges = function (dt, simulationTime, iterationCount) {
+    p.makeLaneChanges = function (dt) {
         // TODO implement lane changes
     };
 
-    p.updateVehicleAccelerations = function (dt, simulationTime, iterationCount) {
+    p.updateVehicleAccelerations = function (dt) {
         this.roadLanes.forEach(function (roadLane) {
             roadLane.calcAccelerations();
         });
     };
     
-    p.updateVehiclePositionsAndSpeeds = function (dt, simulationTime, iterationCount) {
+    p.updateVehiclePositionsAndSpeeds = function (dt) {
         this.roadLanes.forEach(function (roadLane) {
             roadLane.updateSpeedAndPosition(dt);
         });
     };
     
-    p.updateOutflow = function (dt, simulationTime, iterationCount) {
+    p.updateOutflow = function (dt) {
         this.roadLanes.forEach(function (roadLane) {
             roadLane.updateOutflow(dt);
         });
     };
     
-    p.updateInflow = function (dt, simulationTime, iterationCount) {
+    p.updateInflow = function (dt) {
         this.roadLanes.forEach(function (roadLane) {
             roadLane.updateInflow(dt);
         });
@@ -71,7 +71,7 @@ movsim.namespace('movsim.simulation.roadSegment');
         return this.roadLanes[lane-1].getFrontVehicle(position);
     };
 
-    p.checkForInconsistencies = function (dt, simulationTime, iterationCount) {
+    p.checkForInconsistencies = function (dt) {
        // TODO implement check for negative vehicle distances 
     };
 

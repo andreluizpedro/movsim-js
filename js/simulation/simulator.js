@@ -16,7 +16,7 @@ movsim.namespace('movsim.simulation.simulator');
      * @param {number} iterationCount
      */
     ns.timeStep = function (dt, simulationTime, iterationCount) {
-        roadNetwork.timeStep(dt, simulationTime, iterationCount);
+        roadNetwork.timeStep(dt);
     };
 
     ns.reset = function () {

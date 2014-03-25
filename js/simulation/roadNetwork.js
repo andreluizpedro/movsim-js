@@ -21,31 +21,31 @@ movsim.namespace('movsim.simulation.roadNetwork');
     };
 
     // parallel update of all road segments
-    p.timeStep = function (dt, simulationTime, iterationCount) {
+    p.timeStep = function (dt) {
 
         this.roadSegments.forEach(function (roadSegmet) {
-            roadSegmet.makeLaneChanges(dt, simulationTime, iterationCount);
+            roadSegmet.makeLaneChanges(dt);
         });
         
         this.roadSegments.forEach(function (roadSegmet) {
-            roadSegmet.updateVehicleAccelerations(dt, simulationTime, iterationCount);
+            roadSegmet.updateVehicleAccelerations(dt);
         });
         
         this.roadSegments.forEach(function (roadSegmet) {
-            roadSegmet.updateVehiclePositionsAndSpeeds(dt, simulationTime, iterationCount);
+            roadSegmet.updateVehiclePositionsAndSpeeds(dt);
         });
         
         // for debugging
         this.roadSegments.forEach(function (roadSegmet) {
-            roadSegmet.checkForInconsistencies(dt, simulationTime, iterationCount);
+            roadSegmet.checkForInconsistencies(dt);
         });
         
         this.roadSegments.forEach(function (roadSegmet) {
-            roadSegmet.updateOutflow(dt, simulationTime, iterationCount);
+            roadSegmet.updateOutflow(dt);
         });
         
         this.roadSegments.forEach(function (roadSegmet) {
-            roadSegmet.updateInflow(dt, simulationTime, iterationCount);
+            roadSegmet.updateInflow(dt);
         });
 
     };
