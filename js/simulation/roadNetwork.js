@@ -5,7 +5,7 @@ movsim.namespace('movsim.simulation.roadNetwork');
 
     // @constructor
     function RoadNetwork() {
-        this.roadSections = [];
+        this.roadSegments = [];
     }
 
     ns.RoadNetwork = RoadNetwork;
@@ -16,36 +16,36 @@ movsim.namespace('movsim.simulation.roadNetwork');
     };
 
     var p = RoadNetwork.prototype;
-    p.addRoadSection = function (roadSection) {
-        this.roadSections.push(roadSection);
+    p.addRoadSegment = function (roadSegmet) {
+        this.roadSegments.push(roadSegmet);
     };
 
     // parallel update of all road segments
     p.timeStep = function (dt, simulationTime, iterationCount) {
 
-        this.roadSections.forEach(function (roadSection) {
-            roadSection.makeLaneChanges(dt, simulationTime, iterationCount);
+        this.roadSegments.forEach(function (roadSegmet) {
+            roadSegmet.makeLaneChanges(dt, simulationTime, iterationCount);
         });
         
-        this.roadSections.forEach(function (roadSection) {
-            roadSection.updateVehicleAccelerations(dt, simulationTime, iterationCount);
+        this.roadSegments.forEach(function (roadSegmet) {
+            roadSegmet.updateVehicleAccelerations(dt, simulationTime, iterationCount);
         });
         
-        this.roadSections.forEach(function (roadSection) {
-            roadSection.updateVehiclePositionsAndSpeeds(dt, simulationTime, iterationCount);
+        this.roadSegments.forEach(function (roadSegmet) {
+            roadSegmet.updateVehiclePositionsAndSpeeds(dt, simulationTime, iterationCount);
         });
         
         // for debugging
-        this.roadSections.forEach(function (roadSection) {
-            roadSection.checkForInconsistencies(dt, simulationTime, iterationCount);
+        this.roadSegments.forEach(function (roadSegmet) {
+            roadSegmet.checkForInconsistencies(dt, simulationTime, iterationCount);
         });
         
-        this.roadSections.forEach(function (roadSection) {
-            roadSection.updateOutflow(dt, simulationTime, iterationCount);
+        this.roadSegments.forEach(function (roadSegmet) {
+            roadSegmet.updateOutflow(dt, simulationTime, iterationCount);
         });
         
-        this.roadSections.forEach(function (roadSection) {
-            roadSection.updateInflow(dt, simulationTime, iterationCount);
+        this.roadSegments.forEach(function (roadSegmet) {
+            roadSegmet.updateInflow(dt, simulationTime, iterationCount);
         });
 
     };

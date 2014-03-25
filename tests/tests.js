@@ -119,8 +119,8 @@ test('road network ring road creation', function () {
     console.log('roadNetwork: ', roadNetwork);
 
     ok(roadNetwork instanceof movsim.simulation.roadNetwork.RoadNetwork, 'ring road from factory is a compliant road network');
-    ok(roadNetwork.roadSections.length === 1, '1 road section');
-    ok(roadNetwork.roadSections[0].roadLanes.length === 1, '1 road lane');
-    ok(roadNetwork.roadSections[0].ringRoad === true, 'is ring road');
-    deepEqual(roadNetwork.roadSections[0].roadLanes[0].vehicles.length, 20, 'with 20 vehicles');
+    ok(roadNetwork.roadSegments.length === 1, '1 road section');
+    ok(roadNetwork.roadSegments[0].roadLanes.length === 1, '1 road lane');
+    ok(roadNetwork.roadSegments[0].ringRoad === true, 'is ring road');
+    deepEqual(roadNetwork.roadSegments[0].roadLanes[0].vehicles.length, 20, 'with 20 vehicles');
 });

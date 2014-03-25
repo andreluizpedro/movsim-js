@@ -29,7 +29,7 @@ movsim.namespace('movsim.renderer');
         };
 
         self.drawVehicles = function (roadNetwork) {
-            roadNetwork.roadSections.forEach(function (roadSection) {
+            roadNetwork.roadSegments.forEach(function (roadSection) {
                 roadSection.roadLanes.forEach(function (roadLane) {
                     roadLane.vehicles.forEach(function (vehicle, index) {
 

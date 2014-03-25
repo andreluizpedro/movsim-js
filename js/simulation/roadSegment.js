@@ -1,10 +1,10 @@
-movsim.namespace('movsim.simulation.roadSection');
+movsim.namespace('movsim.simulation.roadSegment');
 
 (function (ns) {
     "use strict";
 
     // Constructor
-    function RoadSection(roadSectionParameters) {
+    function RoadSegment(roadSectionParameters) {
         this.roadLanes = [];
         this.ringRoad = roadSectionParameters.ringRoad;
         this.roadLength = roadSectionParameters.roadLength;
@@ -21,7 +21,7 @@ movsim.namespace('movsim.simulation.roadSection');
 
     // Factory
     ns.create = function (roadSectionParameters) {
-        return new RoadSection(roadSectionParameters);
+        return new RoadSegment(roadSectionParameters);
     };
 
     ns.getDefaultParameters = function () {
@@ -34,7 +34,7 @@ movsim.namespace('movsim.simulation.roadSection');
         return roadSectionParameters;
     };
 
-    var p = RoadSection.prototype;
+    var p = RoadSegment.prototype;
     p.makeLaneChanges = function (dt, simulationTime, iterationCount) {
         // TODO implement lane changes
     };
@@ -90,4 +90,4 @@ movsim.namespace('movsim.simulation.roadSection');
 
     return ns;
 
-})(movsim.simulation.roadSection);
+})(movsim.simulation.roadSegment);

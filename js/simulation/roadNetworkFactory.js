@@ -7,13 +7,13 @@ movsim.namespace('movsim.simulation.roadNetworkFactory');
         var roadNetwork = movsim.simulation.roadNetwork.create();
 
         // create one roadSection
-        var roadSectionParameters = movsim.simulation.roadSection.getDefaultParameters();
-        roadSectionParameters.ringRoad = true;
-        roadSectionParameters.roadLength = roadLength;
-        roadSectionParameters.numberOfLanes = numberOfLanes;
-        var roadSection = movsim.simulation.roadSection.create(roadSectionParameters);
+        var roadSegmentParameters = movsim.simulation.roadSegment.getDefaultParameters();
+        roadSegmentParameters.ringRoad = true;
+        roadSegmentParameters.roadLength = roadLength;
+        roadSegmentParameters.numberOfLanes = numberOfLanes;
+        var roadSection = movsim.simulation.roadSegment.create(roadSegmentParameters);
 
-        roadNetwork.addRoadSection(roadSection);
+        roadNetwork.addRoadSegment(roadSection);
         return roadNetwork;
     };
 

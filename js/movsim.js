@@ -83,7 +83,7 @@ movsim.namespace = function (name) {
                 roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
                 movsim.renderer.setRenderer(new renderer.RingRoadRenderer());
                 // apply initial perturbation by reducing speed
-                var vehicles = roadNetwork.roadSections[0].roadLanes[0].vehicles;
+                var vehicles = roadNetwork.roadSegments[0].roadLanes[0].vehicles;
                 var veh = vehicles[Math.floor(vehicles.length/2)];
                 veh.speed = 0.75*veh.speed;
                 break;
@@ -139,7 +139,7 @@ movsim.namespace = function (name) {
 
         } else {
             console.log('simulation paused. simulationTime: ', simulationTime, '  iterationCount: ', iterationCount);
-            roadNetwork.roadSections[0].roadLanes[0].vehicles.forEach(function (vehicle) {
+            roadNetwork.roadSegments[0].roadLanes[0].vehicles.forEach(function (vehicle) {
 //                console.log('vehicle: ', vehicle);
                 console.log('vehicle: ', vehicle.id , '  pos: ' ,vehicle.position.toFixed(2), '  speed: ', vehicle.speed.toFixed(2), '  acc: ', vehicle.acc.toFixed(4), '   a: ', vehicle.carFollowingModelParameters.a);
             });
