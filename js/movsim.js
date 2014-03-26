@@ -35,7 +35,7 @@ movsim.namespace = function (name) {
         console.log('movsim.init() is called');
 
         // init simulation
-        roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(2000, 1);
+        roadNetwork = movsim.simulation.roadNetworkFactory.createRingRoad(1000, 1);
         simulator = movsim.simulation.simulator;
         simulator.init(roadNetwork);
 

@@ -62,7 +62,10 @@ movsim.namespace('movsim.simulation.vehicle');
     };
     
     p.updateAcceleration = function (roadLane) {
-        var leaderMoveable = roadLane.getFrontVehicle(this.position);
+//        var leaderMoveable = roadLane.getFrontVehicle(this.position);
+
+        var leaderMoveable = roadLane.getLeader(this);
+
         // TODO if no leader get a pre-defined Moveable set to infinity
         //if(leaderMoveable === null){
         //    leaderMoveable = Moveable.getMoveableAtInfinity();

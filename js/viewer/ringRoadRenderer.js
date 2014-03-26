@@ -3,6 +3,8 @@ movsim.namespace('movsim.renderer');
 (function (ns) {
     "use strict";
 
+    var geometrie = {x: 500, y: 200, length: 1000, arcCurvature: -0.00629, hdg: -0.0, radius: 159};
+
     ns.RingRoadRenderer = function () {
 
         var self = this;
@@ -19,7 +21,7 @@ movsim.namespace('movsim.renderer');
         var width = canvas.width = backgroundImage.width;
         var height = canvas.height = backgroundImage.height;
 
-        var roadRadius = 120;
+        var roadRadius = geometrie.radius;
         var roadLen = roadRadius * 2 * Math.PI;
 
         var scaleFactorImg = roadRadius / 230; // *Paris* image
@@ -130,20 +132,19 @@ movsim.namespace('movsim.renderer');
 // pixel representation of a vehicle
 // -Math.atan(vehicle.dvdu)=vehicle orient relative to road axis
 // (if change to right => dvdu>0 => phi smaller, therefore minus sign)
-        function vehPix_cstr(veh){
-            this.type=veh.type;
-            this.length=scale*veh.length;
-            this.width=scale*veh.width;
-            this.x=get_x(veh.u-0.5*veh.length,veh.v+0.5);  // horiz: pixels incr to the right
-            this.y=get_y(veh.u-0.5*veh.length,veh.v+0.5);  // vert: pixels incr downwards
+        function vehPix_cstr(veh) {
+            this.type = veh.type;
+            this.length = scale * veh.length;
+            this.width = scale * veh.width;
+            this.x = get_x(veh.u - 0.5 * veh.length, veh.v + 0.5);  // horiz: pixels incr to the right
+            this.y = get_y(veh.u - 0.5 * veh.length, veh.v + 0.5);  // vert: pixels incr downwards
 //            this.phi=get_phi(veh.u-0.5*veh.length)-Math.atan(veh.dvdu);
 
-            this.phi=get_phi(veh.id-0.5*veh.length)-Math.atan(1);
+            this.phi = get_phi(veh.id - 0.5 * veh.length) - Math.atan(1);
 
-            this.cphi=Math.cos(this.phi);  // cos (orientation phi)
-            this.sphi=-Math.sin(this.phi); // - sin since y points downwards
+            this.cphi = Math.cos(this.phi);  // cos (orientation phi)
+            this.sphi = -Math.sin(this.phi); // - sin since y points downwards
         }
-
 
 
         return self;

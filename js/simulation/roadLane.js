@@ -119,14 +119,17 @@ movsim.namespace('movsim.simulation.roadLane');
     p.updateOutflow = function (dt) {
         // remove vehicles with position > this.roadSegment.roadLength (later: assign to linked lane)
         // for ringroad set vehicle at beginning of lane (periodic boundary conditions)
-        // TODO not efficient, find better js-like coding with closure or so, add tests!!
-//        for (var i = 0, len = this.vehicles.length; i < len; i++) {
-//            var vehicle = this.vehicles[i];
-//            if (vehicle.position > this.roadSegment.roadLength) {
-//                //this.vehicles.remove(i);
-//                delete this.vehicles[i]; // TODO how to remove?
-//            }
-//        }
+        var roadLength = this.roadSegment.roadLength;
+        var vehicle;
+        for (var i = 0, len = this.vehicles.length; i < len; i++) {
+            vehicle = this.vehicles[i];
+            if (vehicle.position > roadLength) {
+//                this.vehicles.remove(i);
+                // ring road special case TODO remove
+                vehicle.position -= roadLength;
+            }
+        }
+        this._sortVehicles();
     };
     
     p.updateInflow = function (dt) {
@@ -138,17 +141,17 @@ movsim.namespace('movsim.simulation.roadLane');
             return a.position - b.position;
         });
     };
-    
-    
-    //p._getLeader = function (vehicleIndex) {
-    //    if (this.vehicles.length <= 1) {
-    //        return null;
-    //    }
-    //    if (vehicleIndex === this.vehicles.length-1) {
-    //        return this.roadSegment.ringRoad === true ? this.vehicles[0] : null;
-    //    }
-    //    return this.vehicles[vehicleIndex + 1];
-    //};
+
+    p.getLeader = function (vehicle) {
+        var vehicleIndex = this._getPositionInArray(vehicle.id);
+        if (this.vehicles.length <= 1) {
+            return null;
+        }
+        if (vehicleIndex === this.vehicles.length-1) {
+            return this.roadSegment.ringRoad === true ? this.vehicles[0] : null;
+        }
+        return this.vehicles[vehicleIndex + 1];
+    };
     
     p._positionBinarySearch = function (position) {
         // TODO add test
@@ -166,6 +169,13 @@ movsim.namespace('movsim.simulation.roadLane');
             }
         }
         return -(low + 1); // key not found
+    };
+
+    p._getPositionInArray = function (id) {
+        var index = this.vehicles.map(function(el) {
+            return el.id;
+        }).indexOf(id);
+        return index;
     };
 
     return ns;
