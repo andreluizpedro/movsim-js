@@ -1,6 +1,6 @@
-test("Close Numbers", function () {
-	var halfPi = Math.PI / 2,
-		sqrt2 = Math.sqrt(2);
+test("Close Numbers", function() {
+	"use strict";
+	var halfPi = Math.PI / 2, sqrt2 = Math.sqrt(2);
 
 	QUnit.close(7, 7, 0);
 	QUnit.close(7, 7.1, 0.1);
@@ -16,9 +16,9 @@ test("Close Numbers", function () {
 	QUnit.close(Infinity, Infinity, 1);
 });
 
-test("Distant Numbers", function () {
-	var halfPi = Math.PI / 2,
-		sqrt2 = Math.sqrt(2);
+test("Distant Numbers", function() {
+	"use strict";
+	var halfPi = Math.PI / 2, sqrt2 = Math.sqrt(2);
 
 	QUnit.notClose(6, 7, 0);
 	QUnit.notClose(7, 7.2, 0.1);

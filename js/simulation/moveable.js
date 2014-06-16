@@ -21,11 +21,11 @@ movsim.namespace('movsim.simulation.moveable');
     var p = Moveable.prototype;
     p.getLength = function () {
         return this.vehicle.length;
-    }
+    };
     
     p.getSpeed = function () {
         return this.vehicle.speed;
-    }
+    };
     
     return ns;
 

@@ -4,3 +4,9 @@ python -m SimpleHTTPServer
 # http://localhost:8000/index.html
 # http://localhost:8000/tests.html
 
+# apache2, 
+# sudo apt-get install apache2 # install apache2
+sudo service apache2 start
+
+# Windows: XAMPP package for webserver
+
