@@ -1,0 +1,6 @@
+# local lean web server
+python -m SimpleHTTPServer
+# movsim-js pages
+# http://localhost:8000/index.html
+# http://localhost:8000/tests.html
+
