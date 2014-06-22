@@ -21,6 +21,7 @@ movsim.namespace('movsim.simulation.roadNetwork');
     };
 
     // parallel update of all road segments
+    // TODO check performance of forEach construct, see jsperf.com
     p.timeStep = function (dt) {
 
         this.roadSegments.forEach(function (roadSegmet) {

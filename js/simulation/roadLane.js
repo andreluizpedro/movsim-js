@@ -33,6 +33,7 @@ movsim.namespace('movsim.simulation.roadLane');
     };
 
     p.updateSpeedAndPosition = function (dt) {
+    	// TODO check performance of forEach construct, see jsperf.com
         this.vehicles.forEach(function (vehicle) {
             vehicle.updateSpeedAndPosition(dt);
         });

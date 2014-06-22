@@ -37,7 +37,7 @@ movsim.namespace('movsim.resources');
 
     ns.getImage = function (imgName) {
         if (images[imgName]) {
-            return images[imgName]
+            return images[imgName];
         }
         throw new Error(imgName + ' image not defined in movsim.ressources');
     };
