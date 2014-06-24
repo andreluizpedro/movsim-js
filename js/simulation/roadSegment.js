@@ -4,23 +4,23 @@ movsim.namespace('movsim.simulation.roadSegment');
     "use strict";
 
     // @Constructor
-    function RoadSegment(roadSectionParameters) {
+    function RoadSegment(roadSegmentParameters) {
         this.roadLanes = [];
-        this.ringRoad = roadSectionParameters.ringRoad;  // TODO necessary?
-        this.roadLength = roadSectionParameters.roadLength;
+        this.ringRoad = roadSegmentParameters.ringRoad;  // TODO necessary?
+        this.roadLength = roadSegmentParameters.roadLength;
         this.globalX = roadSegmentParameters.globalX;
         this.globalY = roadSegmentParameters.globalY;
         this.heading = roadSegmentParameters.heading;
         this.curvature = roadSegmentParameters.curvature;
         
-        for (var i = 0; i < roadSectionParameters.numberOfLanes; i++) {
+        for (var i = 0; i < roadSegmentParameters.numberOfLanes; i++) {
             var roadLane = movsim.simulation.roadLane.create(this);
             this.roadLanes.push(roadLane);
         }
         
-        var vehiclesInOneLane = roadSectionParameters.roadLength * roadSectionParameters.initDensityPerLane;
-        var numberOfVehicles = Math.floor(roadSectionParameters.numberOfLanes * vehiclesInOneLane);
-        this._initializeVehicles(numberOfVehicles, roadSectionParameters.initTruckFraction);
+        var vehiclesInOneLane = roadSegmentParameters.roadLength * roadSegmentParameters.initDensityPerLane;
+        var numberOfVehicles = Math.floor(roadSegmentParameters.numberOfLanes * vehiclesInOneLane);
+        this._initializeVehicles(numberOfVehicles, roadSegmentParameters.initTruckFraction);
     }
 
     // Factory
@@ -35,10 +35,10 @@ movsim.namespace('movsim.simulation.roadSegment');
         roadSectionParameters.initDensityPerLane = 10 / 1000;
         roadSectionParameters.initTruckFraction = 0.1;
         roadSectionParameters.ringRoad = false;
-        roadSegmentParameters.globalX = 0;
-        roadSegmentParameters.globalY = 0;
-        roadSegmentParameters.heading = 0;
-        roadSegmentParameters.curvature = 0;
+        roadSectionParameters.globalX = 0;
+        roadSectionParameters.globalY = 0;
+        roadSectionParameters.heading = 0;
+        roadSectionParameters.curvature = 0;
         return roadSectionParameters;
     };
 
