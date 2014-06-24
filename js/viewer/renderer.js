@@ -29,7 +29,7 @@ movsim.namespace('movsim.renderer');
     };
 
     ns.drawRoads = function () {
-        scenarioRenderer.drawRoads();
+        scenarioRenderer.drawRoads(roadNetwork);
     };
 
     ns.drawVehicles = function () {

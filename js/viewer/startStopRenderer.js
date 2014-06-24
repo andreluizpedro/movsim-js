@@ -44,7 +44,7 @@ movsim.namespace('movsim.renderer');
             });
         };
 
-        self.drawRoads = function () {
+        self.drawRoads = function (roadNetwork) {
 
         };
 

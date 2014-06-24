@@ -46,6 +46,7 @@ movsim.namespace('movsim.renderer');
 
         self.drawVehicles = function (roadNetwork) {
             roadNetwork.roadSegments.forEach(function (roadSection) {
+            	//console.log("drawVehicles: curvature = " + roadSection.curvature);
                 roadSection.roadLanes.forEach(function (roadLane) {
                     roadLane.vehicles.forEach(function (vehicle, index) {
 
@@ -78,25 +79,30 @@ movsim.namespace('movsim.renderer');
             });
         };
 
-        self.drawRoads = function () {
+	    self.drawRoads = function(roadNetwork) {
+			roadNetwork.roadSegments.forEach(function(roadSection) {
+				console.log("drawRoad: laneWidth = " + roadSection.laneWidth);
+				
+				// TODO use geometry from roadSection
+				var nSegm = 60;
+				var factor = 1 + (nLanes + 0.9) * roadSection.laneWidth / roadRadius;
+				var segmLen = scale * factor * roadLen / nSegm;
+				var segmWidth = scale * (nLanes + 0.9) * laneWidth;
+				// var segmWidth=scale*3.1*laneWidth;
+				for (var iSegm = 0; iSegm < nSegm; iSegm++) {
+					var u = roadLen * iSegm / nSegm;
+					var cosphi = get_cphi(u);
+					var sinphi = get_sphi(u);
+					// road center of two-lane road has v=1
+					var vCenter = 0.5 * nLanes;
+					ctx.setTransform(cosphi, sinphi, -sinphi, cosphi, get_x(u,
+							vCenter), get_y(u, vCenter));
+					ctx.drawImage(roadOneLane, -0.5 * segmLen,
+							-0.5 * segmWidth, segmLen, segmWidth);
+				}
+			});
 
-            var nSegm = 60;
-            var factor = 1 + (nLanes + 0.9) * laneWidth / roadRadius;
-            var segmLen = scale * factor * roadLen / nSegm;
-            var segmWidth = scale * (nLanes + 0.9) * laneWidth;
-            //var segmWidth=scale*3.1*laneWidth;
-            for (var iSegm = 0; iSegm < nSegm; iSegm++) {
-                var u = roadLen * iSegm / nSegm;
-                var cosphi = get_cphi(u);
-                var sinphi = get_sphi(u);
-                // road center of two-lane road has v=1
-                var vCenter = 0.5 * nLanes;
-                ctx.setTransform(cosphi, sinphi, -sinphi, cosphi,
-                    get_x(u, vCenter), get_y(u, vCenter));
-                ctx.drawImage(roadOneLane, -0.5 * segmLen, -0.5 * segmWidth, segmLen, segmWidth);
-            }
-
-        };
+		};
 
 
 // x coordinate from arc length u and transversal logical coordinate v
