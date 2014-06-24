@@ -39,6 +39,7 @@ movsim.namespace('movsim.simulation.roadSegment');
         roadSectionParameters.globalY = 0;
         roadSectionParameters.heading = 0;
         roadSectionParameters.curvature = 0;
+        roadSectionParameters.laneWidth = 10;
         return roadSectionParameters;
     };
 
