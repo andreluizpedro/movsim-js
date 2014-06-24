@@ -3,11 +3,15 @@ movsim.namespace('movsim.simulation.roadSegment');
 (function (ns) {
     "use strict";
 
-    // Constructor
+    // @Constructor
     function RoadSegment(roadSectionParameters) {
         this.roadLanes = [];
-        this.ringRoad = roadSectionParameters.ringRoad;
+        this.ringRoad = roadSectionParameters.ringRoad;  // TODO necessary?
         this.roadLength = roadSectionParameters.roadLength;
+        this.globalX = roadSegmentParameters.globalX;
+        this.globalY = roadSegmentParameters.globalY;
+        this.heading = roadSegmentParameters.heading;
+        this.curvature = roadSegmentParameters.curvature;
         
         for (var i = 0; i < roadSectionParameters.numberOfLanes; i++) {
             var roadLane = movsim.simulation.roadLane.create(this);
@@ -31,6 +35,10 @@ movsim.namespace('movsim.simulation.roadSegment');
         roadSectionParameters.initDensityPerLane = 10 / 1000;
         roadSectionParameters.initTruckFraction = 0.1;
         roadSectionParameters.ringRoad = false;
+        roadSegmentParameters.globalX = 0;
+        roadSegmentParameters.globalY = 0;
+        roadSegmentParameters.heading = 0;
+        roadSegmentParameters.curvature = 0;
         return roadSectionParameters;
     };
 
