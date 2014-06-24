@@ -17,6 +17,7 @@ movsim.namespace('movsim.carfollowing.models');
     }
 
     ns.calculateAcceleration = function (s, v, vl, v0eff, parameters) {
+    	// TODO check effective speed of instanceof call
         if (parameters instanceof movsim.carfollowing.idmParameters.IdmParameters) {
             return idmCalcAcc(s, v, vl, v0eff, parameters);
         } else{
