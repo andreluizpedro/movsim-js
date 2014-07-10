@@ -53,7 +53,6 @@ test('models simple acceleration function', function () {
     var modelParameters = movsim.carfollowing.idmParameters.createParameters(20, 1.2, 1.2, 1.5, 2, 0);
     ok(modelParameters instanceof movsim.carfollowing.idmParameters.IdmParameters);
     var v0eff=modelParameters.v0;
-    var maxDifference = 0.0001;
     
     QUnit.close(movsim.carfollowing.models.calculateAcceleration(100000, 0, modelParameters.v0, v0eff, modelParameters), modelParameters.a, maxDifference);
     QUnit.close(movsim.carfollowing.models.calculateAcceleration(100000, v0eff, modelParameters.v0, v0eff, modelParameters), 0,  maxDifference);
@@ -121,6 +120,6 @@ test('road network ring road creation', function () {
     ok(roadNetwork instanceof movsim.simulation.roadNetwork.RoadNetwork, 'ring road from factory is a compliant road network');
     ok(roadNetwork.roadSegments.length === 1, '1 road section');
     ok(roadNetwork.roadSegments[0].roadLanes.length === 1, '1 road lane');
-    ok(roadNetwork.roadSegments[0].ringRoad === true, 'is ring road');
+    ok(roadNetwork.roadSegments[0].parameters.ringRoad === true, 'is ring road');
     deepEqual(roadNetwork.roadSegments[0].roadLanes[0].vehicles.length, 20, 'with 20 vehicles');
 });

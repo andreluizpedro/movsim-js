@@ -6,14 +6,7 @@ movsim.namespace('movsim.simulation.roadSegment');
     // @Constructor
     function RoadSegment(roadSegmentParameters) {
         this.roadLanes = [];
-        // TODO leave member variables in parameter object
-        this.ringRoad = roadSegmentParameters.ringRoad;  // TODO necessary?
-        this.roadLength = roadSegmentParameters.roadLength;
-        this.globalX = roadSegmentParameters.globalX;
-        this.globalY = roadSegmentParameters.globalY;
-        this.heading = roadSegmentParameters.heading;
-        this.curvature = roadSegmentParameters.curvature;
-        this.laneWidth = roadSegmentParameters.laneWidth;
+        this.parameters = roadSegmentParameters;
         
         for (var i = 0; i < roadSegmentParameters.numberOfLanes; i++) {
             var roadLane = movsim.simulation.roadLane.create(this);

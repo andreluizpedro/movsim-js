@@ -3,6 +3,8 @@ movsim.namespace('movsim.renderer');
 (function (ns) {
     "use strict";
 
+    // TODO specific renderer for scenario can be removed
+    
     ns.StartStopRenderer = function () {
         var self = this;
 

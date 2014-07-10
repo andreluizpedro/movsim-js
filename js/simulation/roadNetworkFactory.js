@@ -12,7 +12,7 @@ movsim.namespace('movsim.simulation.roadNetworkFactory');
         roadSegmentParameters.roadLength = roadLength;
         roadSegmentParameters.numberOfLanes = numberOfLanes;
         roadSegmentParameters.globalX = 0;
-        roadSegmentParameters.globalY = 0;//
+        roadSegmentParameters.globalY = 200;
         roadSegmentParameters.heading = 0;
         roadSegmentParameters.curvature = 2*Math.PI/roadLength;
         

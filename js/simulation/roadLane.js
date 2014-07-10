@@ -33,10 +33,13 @@ movsim.namespace('movsim.simulation.roadLane');
     };
 
     p.updateSpeedAndPosition = function (dt) {
-    	// TODO check performance of forEach construct, see jsperf.com
-        this.vehicles.forEach(function (vehicle) {
+    	for (var i = 0; i < this.vehicles.length; i++) {
+    		var vehicle = this.vehicles[i];
             vehicle.updateSpeedAndPosition(dt);
-        });
+            if(this.roadSegment.parameters.ringRoad && vehicle.position>this.roadSegment.parameters.roadLength){
+            	vehicle.position -= this.roadSegment.parameters.roadLength;
+            }
+        }
     };
     
     p.getLaneRearVehicle = function() {

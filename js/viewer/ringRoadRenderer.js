@@ -3,8 +3,8 @@ movsim.namespace('movsim.renderer');
 (function (ns) {
     "use strict";
 
-    var geometrie = {x: 500, y: 200, length: 1000, arcCurvature: -0.00629, hdg: -0.0, radius: 159};
-
+    // TODO use geometry from roadSegments to draw roadSegments independent from any assumptions!
+    
     ns.RingRoadRenderer = function () {
 
         var self = this;
@@ -15,38 +15,30 @@ movsim.namespace('movsim.renderer');
 
         var car = images.car2;
         var truck = images.truck1;
-        var roadOneLane = images.ringRoadOneLane;
-        var backgroundImage = images.bgRoundabout;
+        var roadOneLane = images.ringRoadOneLane;  
+        // var backgroundImage = images.bgRoundabout;
 
-        var width = canvas.width = backgroundImage.width;
-        var height = canvas.height = backgroundImage.height;
+        var width = canvas.width = 800; //backgroundImage.width;
+        var height = canvas.height = 800; // backgroundImage.height;
 
-        var roadRadius = geometrie.radius;
-        var roadLen = roadRadius * 2 * Math.PI;
-
-        var scaleFactorImg = roadRadius / 230; // *Paris* image
+        // TODO replace fixed scale numbers
+        var scaleFactorImg = 1; 
         var center_x = 0.50 * width * scaleFactorImg;
         var center_y = 0.48 * height * scaleFactorImg;
-
-        var scale = 2;
-        var laneWidth = 20;
-        var nLanes = 2;
+        var scale = 0.8;
 
         self.drawBackground = function () {
-//            ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-
+        	// ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
             // reset transform matrix and draw background
             // (only needed if no explicit road drawn)
-
             ctx.setTransform(1, 0, 0, 1, 0, 0);
-            var scaleImg = scale * scaleFactorImg;
-            ctx.drawImage(backgroundImage, 0, 0, scaleImg * width, scaleImg * height);
-
+            // var scaleImg = scale * scaleFactorImg;
+            //ctx.drawImage(backgroundImage, 0, 0, scaleImg * width, scaleImg * height);
         };
 
         self.drawVehicles = function (roadNetwork) {
             roadNetwork.roadSegments.forEach(function (roadSection) {
-            	//console.log("drawVehicles: curvature = " + roadSection.curvature);
+            	// console.log("drawVehicles: curvature = " + roadSection.parameters.curvature);
                 roadSection.roadLanes.forEach(function (roadLane) {
                     roadLane.vehicles.forEach(function (vehicle, index) {
 
@@ -67,38 +59,36 @@ movsim.namespace('movsim.renderer');
 //                        ctx.drawImage(vehImage, -0.5*veh_len, -0.5* veh_w, veh_len, veh_w);
 //                    }
 
-                        var x = vehicle.position;
-                        var y = 300;
+                    	// TODO calculate correct screen coordinates from roadSegment geometry
+                        var x = vehicle.position;  // ringroad !!  
+                        var y = roadSection.parameters.globalY;
                         var vehImage = vehicle.isTruck ? truck : car;
                         ctx.setTransform(1, 0, 0, 1, 0, 0);
                         var scaleImg = scale * scaleFactorImg;
                         ctx.drawImage(vehImage, x, y, scaleImg * 30, scaleImg * 20);
-//                        ctx.drawImage(vehImage, x, y, 30, 20);
                     });
                 });
             });
         };
 
 	    self.drawRoads = function(roadNetwork) {
-			roadNetwork.roadSegments.forEach(function(roadSection) {
-				console.log("drawRoad: laneWidth = " + roadSection.laneWidth);
-				
-				// TODO use geometry from roadSection
+			roadNetwork.roadSegments.forEach(function(roadSegment) {
+				// console.log("drawRoad: laneWidth = " + roadSegment.parameters.laneWidth);
 				var nSegm = 60;
-				var factor = 1 + (nLanes + 0.9) * roadSection.laneWidth / roadRadius;
-				var segmLen = scale * factor * roadLen / nSegm;
-				var segmWidth = scale * (nLanes + 0.9) * laneWidth;
-				// var segmWidth=scale*3.1*laneWidth;
+				var factor = 1 + (roadSegment.parameters.numberOfLanes + 0.9) * roadSegment.parameters.laneWidth *roadSegment.parameters.curvature;
+				var segmLen = scale * factor * roadSegment.parameters.roadLength / nSegm;
+				var segmWidth = scale * (roadSegment.parameters.numberOfLanes + 0.9) * roadSegment.parameters.laneWidth;
+				// var segmWidth=scale*3.1*roadSection.parameters.laneWidth;
 				for (var iSegm = 0; iSegm < nSegm; iSegm++) {
-					var u = roadLen * iSegm / nSegm;
-					var cosphi = get_cphi(u);
-					var sinphi = get_sphi(u);
+					var u = roadSegment.parameters.roadLength * iSegm / nSegm;
+					var cosphi = get_cphi(u, roadSegment.parameters);
+					var sinphi = get_sphi(u, roadSegment.parameters);
 					// road center of two-lane road has v=1
-					var vCenter = 0.5 * nLanes;
-					ctx.setTransform(cosphi, sinphi, -sinphi, cosphi, get_x(u,
-							vCenter), get_y(u, vCenter));
-					ctx.drawImage(roadOneLane, -0.5 * segmLen,
-							-0.5 * segmWidth, segmLen, segmWidth);
+					var vCenter = 0.5 * roadSegment.parameters.numberOfLanes;
+					var x = get_x(u, vCenter, roadSegment.parameters);
+					var y = get_y(u, vCenter, roadSegment.parameters);
+					ctx.setTransform(cosphi, sinphi, -sinphi, cosphi, x, y);
+					ctx.drawImage(roadOneLane, -0.5 * segmLen, -0.5 * segmWidth, segmLen, segmWidth);
 				}
 			});
 
@@ -109,41 +99,41 @@ movsim.namespace('movsim.renderer');
 // v=0 at median (left border of directional road)
 // arc road=u/roadRadius; -sin(..) since yPix downwards
 
-        function get_x(u, v) {
-            return scale * (center_x + (roadRadius + laneWidth * v) * Math.cos(u / roadRadius));
+        function get_x(u, v, roadSegmentParameters) {
+            return scale * (center_x  + (1./roadSegmentParameters.curvature + roadSegmentParameters.laneWidth * v) * Math.cos(u * roadSegmentParameters.curvature));
         }
 
-        function get_y(u, v) {
-            return scale * (center_y - (roadRadius + laneWidth * v) * Math.sin(u / roadRadius));
+        function get_y(u, v, roadSegmentParameters) {
+            return scale * (center_y - (1./roadSegmentParameters.curvature + roadSegmentParameters.laneWidth * v) * Math.sin(u * roadSegmentParameters.curvature));
         }
 
 // cos car rotation (pi/2 shifted w/respect to road angular coordinate)
 
-        function get_cphi(u) {
+        function get_cphi(u, roadSegmentParameters) {
             //return -Math.sin(u/roadRadius);
-            return Math.cos(u / roadRadius + 0.5 * Math.PI);
+            return Math.cos(u * roadSegmentParameters.curvature + 0.5 * Math.PI);
         }
 
-        function get_sphi(u) {
+        function get_sphi(u, roadSegmentParameters) {
             //return -Math.cos(u/roadRadius);
-            return -Math.sin(u / roadRadius + 0.5 * Math.PI);
+            return -Math.sin(u * roadSegmentParameters.curvature + 0.5 * Math.PI);
         }
 
-        function get_phi(u) {
+        function get_phi(u, roadSegmentParameters) {
             //return -Math.cos(u/roadRadius);
-            return u / roadRadius + 0.5 * Math.PI;
+            return u * roadSegmentParameters.curvature + 0.5 * Math.PI;
         }
 
 
 // pixel representation of a vehicle
 // -Math.atan(vehicle.dvdu)=vehicle orient relative to road axis
 // (if change to right => dvdu>0 => phi smaller, therefore minus sign)
-        function vehPix_cstr(veh) {
+        function vehPix_cstr(veh, roadSegmentParameters) {
             this.type = veh.type;
             this.length = scale * veh.length;
             this.width = scale * veh.width;
-            this.x = get_x(veh.u - 0.5 * veh.length, veh.v + 0.5);  // horiz: pixels incr to the right
-            this.y = get_y(veh.u - 0.5 * veh.length, veh.v + 0.5);  // vert: pixels incr downwards
+            this.x = get_x(veh.u - 0.5 * veh.length, veh.v + 0.5, roadSegmentParameters);  // horiz: pixels incr to the right
+            this.y = get_y(veh.u - 0.5 * veh.length, veh.v + 0.5, roadSegmentParameters);  // vert: pixels incr downwards
 //            this.phi=get_phi(veh.u-0.5*veh.length)-Math.atan(veh.dvdu);
 
             this.phi = get_phi(veh.id - 0.5 * veh.length) - Math.atan(1);

@@ -133,7 +133,7 @@ movsim.namespace = function (name) {
                 running = false;
             }
 
-            if (iterationCount % 100 === 0) {
+            if (iterationCount % 500 === 0) {
                 console.log('timeStep: ', dt, ' -- simTime: ', simulationTime, ' -- iterationcount: ', iterationCount);
             }
 
